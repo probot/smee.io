@@ -111,6 +111,23 @@ describe('server', () => {
       })
     })
 
+    it('emits events when content-type is x-www-form-urlencoded', async (done) => {
+      const payload = { 'payload': 'true' } // UrlEncoded are string:string
+
+      await request(server).post(channel)
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send(payload)
+        .expect(200)
+
+      events.addEventListener('message', (msg) => {
+        const data = JSON.parse(msg.data)
+        expect(data.body).toEqual(payload)
+
+        // test is done if all of this gets called
+        done()
+      })
+    })
+
     it('POST /:channel/redeliver re-emits a payload', async (done) => {
       const payload = { payload: true }
 

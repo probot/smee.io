@@ -1,7 +1,6 @@
 const sse = require('connect-sse')()
 const express = require('express')
 const crypto = require('crypto')
-const bodyParser = require('body-parser')
 const EventEmitter = require('events')
 const path = require('path')
 const Raven = require('raven')
@@ -29,7 +28,8 @@ module.exports = (testRoute) => {
     app.use(require('express-sslify').HTTPS({ trustProtoHeader: true }))
   }
 
-  app.use(bodyParser.json())
+  app.use(express.json())
+  app.use(express.urlencoded())
   app.use('/public', express.static(pubFolder))
 
   app.get('/', (req, res) => {
