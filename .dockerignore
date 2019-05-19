@@ -3,5 +3,4 @@ node_modules
 Dockerfile
 npm-debug.log
 .git
-.hg
-.svn
+tests/**

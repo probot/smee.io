@@ -20,7 +20,7 @@ ARG PORT=3000
 ##############################################################################
 # Build the container with Source code compiled
 ##############################################################################
-FROM node:10-alpine as build-env
+FROM node:lts-alpine as build-env
 ## To allow caching before building, we need to remove 'postinstall' from the package.json
 ## > See about optimization: https://www.aptible.com/documentation/enclave/tutorials/faq/dockerfile-caching/npm-dockerfile-caching.html
 WORKDIR /source
@@ -31,7 +31,7 @@ RUN npm install --production --unsafe-perm
 # Build the final runtime container
 # Note: Port must be > 1024. See https://stackoverflow.com/a/9947222/80527
 ##############################################################################
-FROM node:10-alpine
+FROM node:lts-alpine
 ARG PORT=3000
 WORKDIR /app/smee-io
 COPY --from=build-env /source .
@@ -51,10 +51,10 @@ ENTRYPOINT [ "npm", "start" ]
 ##############################################################################
 # Label the Image
 ##############################################################################
-LABEL name="smee-io" \ 
-      version="1.0" \
-      description="Smee.IO: https://smee.io/ \r\nReceives payloads then sends them to your locally running application." \
-      org.label-schema.vendor="Smee.io" \
-      org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.version=$BUILD_VERSION \
-      org.label-schema.docker.cmd="docker run -p 3000:3000 -d probot/smee-io"
+LABEL name="smee-io"
+LABEL version=$BUILD_VERSION
+LABEL description="Smee.IO: https://smee.io/ \r\nReceives payloads then sends them to your locally running application."
+LABEL org.label-schema.vendor="Smee.io" 
+LABEL org.label-schema.build-date=$BUILD_DATE 
+LABEL org.label-schema.version=$BUILD_VERSION 
+LABEL org.label-schema.docker.cmd="docker run -p 3000:3000 -d probot/smee-io"
