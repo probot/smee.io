@@ -8,6 +8,9 @@ const Raven = require('raven')
 
 const KeepAlive = require('./keep-alive')
 
+// add timestamps in front of log messages in UTC format
+require('log-timestamp');
+
 // Tiny logger to prevent logs in tests
 const log = process.env.NODE_ENV === 'test' ? _ => _ : console.log
 
@@ -65,6 +68,8 @@ module.exports = (testRoute) => {
 
     function send (data) {
       res.json(data)
+	  var payload = JSON.stringify(data.body)
+      log(`Webhook payload forwared: ${payload}`) 
       keepAlive.reset()
     }
 
