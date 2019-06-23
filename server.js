@@ -68,8 +68,6 @@ module.exports = (testRoute) => {
 
     function send (data) {
       res.json(data)
-	  var payload = JSON.stringify(data.body)
-      log(`Webhook payload forwared: ${payload}`) 
       keepAlive.reset()
     }
 
@@ -104,6 +102,8 @@ module.exports = (testRoute) => {
       query: req.query,
       timestamp: Date.now()
     })
+	var payload = JSON.stringify(req.body)
+	log(`Webhook payload received: ${payload}`)
     res.status(200).end()
   })
 
