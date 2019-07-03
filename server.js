@@ -58,7 +58,8 @@ module.exports = (testRoute) => {
     }
 
     if (req.accepts('html')) {
-      log('Client connected to web', channel, events.listenerCount(channel))
+      var remoteAdd = req.connection.remoteAddress
+      log('[UTC] Client connected to web', remoteAdd, channel, events.listenerCount(channel))
       res.sendFile(path.join(pubFolder, 'webhooks.html'))
     } else {
       next()
@@ -74,7 +75,7 @@ module.exports = (testRoute) => {
     function close () {
       events.removeListener(channel, send)
       keepAlive.stop()
-      log('Client disconnected', channel, events.listenerCount(channel))
+      log('[UTC] Client disconnected', channel, events.listenerCount(channel))
     }
 
     // Setup interval to ping every 30 seconds to keep the connection alive
@@ -91,8 +92,8 @@ module.exports = (testRoute) => {
     res.on('close', close)
 
     res.json({}, 'ready')
-
-    log('Client connected to sse', channel, events.listenerCount(channel))
+    var remoteAdd = req.connection.remoteAddress
+    log('[UTC] Client connected to sse (smee-client)', remoteAdd,channel, events.listenerCount(channel))
   })
 
   app.post('/:channel', (req, res) => {
@@ -103,7 +104,8 @@ module.exports = (testRoute) => {
       timestamp: Date.now()
     })
 	var payload = JSON.stringify(req.body)
-	log(`Webhook payload received: ${payload}`)
+	var remoteAdd = req.connection.remoteAddress
+	log(`[UTC] Webhook payload received from ${remoteAdd}: ${payload}`)
     res.status(200).end()
   })
 
