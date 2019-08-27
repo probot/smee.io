@@ -11,6 +11,20 @@ const KeepAlive = require('./keep-alive')
 // Tiny logger to prevent logs in tests
 const log = process.env.NODE_ENV === 'test' ? _ => _ : console.log
 
+// Get an array of banned channel names
+const bannedChannels = process.env.BANNED_CHANNELS && process.env.BANNED_CHANNELS.split(',')
+
+// Middleware to bail early if the channel is banned
+function channelIsBanned (req, res, next) {
+  // Can't use the req.param here because the route hasn't been defined
+  const channel = req.originalUrl.slice(1)
+  if (channel && bannedChannels && bannedChannels.includes(channel)) {
+    return res.status(403).send('Channel has been disabled due to too many connections.')
+  }
+
+  next()
+}
+
 module.exports = (testRoute) => {
   const events = new EventEmitter()
   const app = express()
@@ -18,6 +32,8 @@ module.exports = (testRoute) => {
 
   // Used for testing route error handling
   if (testRoute) testRoute(app)
+
+  app.use(channelIsBanned)
 
   if (process.env.SENTRY_DSN) {
     Raven.config(process.env.SENTRY_DSN).install()
@@ -49,10 +65,6 @@ module.exports = (testRoute) => {
 
   app.get('/:channel', (req, res, next) => {
     const { channel } = req.params
-    const bannedChannels = process.env.BANNED_CHANNELS && process.env.BANNED_CHANNELS.split(',')
-    if (bannedChannels && bannedChannels.includes(channel)) {
-      return res.status(403).send('Channel has been disabled due to too many connections.')
-    }
 
     if (req.accepts('html')) {
       log('Client connected to web', channel, events.listenerCount(channel))
