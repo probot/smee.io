@@ -126,5 +126,12 @@ describe('server', () => {
         done()
       })
     })
+
+    it('POST /:channel returns a 403 for banned channels', async () => {
+      process.env.BANNED_CHANNELS = 'hello,imbanned,goodbye'
+      const res = await request(server).post(`/imbanned`)
+      expect(res.status).toBe(403)
+      delete process.env.BANNED_CHANNELS
+    })
   })
 })
