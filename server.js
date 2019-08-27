@@ -19,8 +19,8 @@ function channelIsBanned (req, res, next) {
   // Can't use the req.param here because the route hasn't been defined
   const channel = req.originalUrl.slice(1)
   if (channel && bannedChannels && bannedChannels.includes(channel)) {
-      return res.status(403).send('Channel has been disabled due to too many connections.')
-    }
+    return res.status(403).send('Channel has been disabled due to too many connections.')
+  }
 
   next()
 }
@@ -33,6 +33,8 @@ module.exports = (testRoute) => {
   // Used for testing route error handling
   if (testRoute) testRoute(app)
 
+  app.use(channelIsBanned)
+
   if (process.env.SENTRY_DSN) {
     Raven.config(process.env.SENTRY_DSN).install()
     app.use(Raven.requestHandler())
@@ -43,7 +45,6 @@ module.exports = (testRoute) => {
     app.use(require('express-sslify').HTTPS({ trustProtoHeader: true }))
   }
 
-  app.use(channelIsBanned)
   app.use(bodyParser.json())
   app.use('/public', express.static(pubFolder))
 
