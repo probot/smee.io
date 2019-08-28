@@ -8,7 +8,7 @@
   <a href="#faq">FAQ</a>
 </p>
 
-<p align="center"><a href="https://travis-ci.com/probot/smee.io"><img src="https://badgen.now.sh/travis/probot/smee.io" alt="Build Status"></a> <a href="https://codecov.io/gh/probot/smee.io/"><img src="https://badgen.now.sh/codecov/c/github/probot/smee.io" alt="Codecov"></a></p>
+<p align="center"><a href="https://github.com/probot/smee.io"><img alt="GitHub Actions status" src="https://github.com/probot/smee.io/workflows/Node%20CI/badge.svg"> <a href="https://codecov.io/gh/probot/smee.io/"><img src="https://badgen.now.sh/codecov/c/github/probot/smee.io" alt="Codecov"></a></p>
 
 <p align="center"><a href="https://github.com/probot/smee-client">Looking for <strong>probot/smee-client</strong>?</a></p>
 
