@@ -3,19 +3,6 @@ import Octicon, { Info } from '@githubprimer/octicons-react'
 import CodeExample from './CodeExample'
 
 export default function Blank () {
-  const code = `const SmeeClient = require('smee-client')
-
-const smee = new SmeeClient({
-source: '${window.location.href}',
-target: 'http://localhost:3000/events',
-logger: console
-})
-
-const events = smee.start()
-
-// Stop forwarding events
-events.close()`
-
   return (
     <div className="container-md p-responsive">
       <div className="Box p-3 mt-4 mb-6">
