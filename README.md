@@ -12,19 +12,19 @@
 
 <p align="center"><a href="https://github.com/probot/smee-client">Looking for <strong>probot/smee-client</strong>?</a></p>
 
-### Usage
+## Usage
 
 Smee is a webhook payload delivery service - it receives webhook payloads, and sends them to listening clients. You can generate a new channel by visiting https://smee.io, and get a unique URL to sent payloads to.
 
 > **Heads up**! Smee.io is intended for use in development, not for production. It's a way to inspect payloads through a UI and receive them on a local machine, not as a proxy for production applications.
 
-### How it works
+## How it works
 
 Smee works with two components: smee.io, the public website, and the [`smee-client`](https://github.com/probot/smee-client). They talk to each other via [Server-Sent Events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events), a type of connection that allows for messages to be sent from a source to any clients listening.
 
 This means that channels are just an abstraction - all Smee does is get a payload and sends it to any _actively connected clients_.
 
-### Deploying your own Smee.io
+## Deploying your own Smee.io
 
 Smee.io is a simple Node.js application. You can deploy it any way you would deploy any other Node app. The easier solution is probably Heroku, or you can use the `Dockerfile` found in this repository to deploy a container.
 
@@ -34,7 +34,7 @@ Don't forget to point `smee-client` to your instance of `smee.io`:
 smee --url https://your-smee.io/channel 
 ```
 
-### FAQ
+## FAQ
 
 **How long do channels live for?**
 
