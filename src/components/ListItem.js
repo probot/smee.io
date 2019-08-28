@@ -3,7 +3,7 @@ import { object, bool, func } from 'prop-types'
 import moment from 'moment'
 import ReactJson from 'react-json-view'
 import EventIcon from './EventIcon'
-import Octicon, { KebabHorizontal, Clippy, Sync, Pin } from '@githubprimer/octicons-react'
+import Octicon, { KebabHorizontal, Clippy, Sync, Pin } from '@primer/octicons-react'
 import EventDescription from './EventDescription'
 import copy from 'copy-to-clipboard'
 

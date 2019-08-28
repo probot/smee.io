@@ -1,5 +1,5 @@
 import React from 'react'
-import Octicon, { Info } from '@githubprimer/octicons-react'
+import Octicon, { Info } from '@primer/octicons-react'
 import CodeExample from './CodeExample'
 
 export default function Blank () {

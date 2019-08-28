@@ -19,7 +19,7 @@ import Octicon, {
   Bookmark,
   IssueOpened,
   IssueClosed
-} from '@githubprimer/octicons-react'
+} from '@primer/octicons-react'
 
 const iconMap = {
   push: RepoPush,

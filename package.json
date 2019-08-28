@@ -14,7 +14,7 @@
     "postinstall": "npm run build"
   },
   "dependencies": {
-    "@githubprimer/octicons-react": "^8.2.0",
+    "@primer/octicons-react": "^9.1.1",
     "connect-sse": "^1.2.0",
     "copy-to-clipboard": "^3.0.8",
     "eventsource": "^1.0.5",
