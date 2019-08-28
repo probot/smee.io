@@ -1,4 +1,4 @@
-<h3 align="center"><a href="https://smee.io">smee.io</a></h3>
+<h1 align="center"><a href="https://smee.io">smee.io</a></h1>
 
 <p align="center">
   Webhook payload delivery service<br>
