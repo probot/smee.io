@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { string } from 'prop-types'
 import Octicon, {
   Comment,
@@ -45,24 +45,23 @@ const iconMap = {
   repository_vulnerability_alert: Stop
 }
 
-export default class EventIcon extends Component {
-  static propTypes = {
-    action: string,
-    event: string.isRequired
+export default function EventIcon ({
+  action,
+  event
+}) {
+  let icon
+  if (action && iconMap[`${event}.${action}`]) {
+    icon = iconMap[`${event}.${action}`]
+  } else if (iconMap[event]) {
+    icon = iconMap[event]
+  } else {
+    icon = Package
   }
 
-  render () {
-    const { action, event } = this.props
+  return <Octicon icon={icon} />
+}
 
-    let icon
-    if (action && iconMap[`${event}.${action}`]) {
-      icon = iconMap[`${event}.${action}`]
-    } else if (iconMap[event]) {
-      icon = iconMap[event]
-    } else {
-      icon = Package
-    }
-
-    return <Octicon icon={icon} />
-  }
+EventIcon.propTypes = {
+  action: string,
+  event: string.isRequired
 }
