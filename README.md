@@ -4,7 +4,7 @@
   Webhook payload delivery service<br>
   <a href="#usage">Usage</a> •
   <a href="#how-it-works">How it works</a> •
-  <a href="#deploying-your-own-smee.io">Deploying your own Smee.io</a> •
+  <a href="#deploying-your-own-smeeio">Deploying your own Smee.io</a> •
   <a href="#faq">FAQ</a>
 </p>
 
