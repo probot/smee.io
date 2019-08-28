@@ -14,7 +14,7 @@
 
 ## Usage
 
-Smee is a webhook payload delivery service - it receives webhook payloads, and sends them to listening clients. You can generate a new channel by visiting https://smee.io, and get a unique URL to sent payloads to.
+Smee is a webhook payload delivery service - it receives webhook payloads, and sends them to listening clients. You can generate a new channel by visiting https://smee.io, and get a unique URL to send payloads to.
 
 > **Heads up**! Smee.io is intended for use in development, not for production. It's a way to inspect payloads through a UI and receive them on a local machine, not as a proxy for production applications.
 
