@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ListItem from './ListItem'
 import get from 'get-value'
-import Octicon, { Alert, Pulse, Search, Pin } from '@githubprimer/octicons-react'
+import Octicon, { Alert, Pulse, Search, Pin } from '@primer/octicons-react'
 import Blank from './Blank'
 
 export default class App extends Component {
