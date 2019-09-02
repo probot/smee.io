@@ -6,6 +6,7 @@ const EventEmitter = require('events')
 const path = require('path')
 const Raven = require('raven')
 
+const RedisBus = require('./redis-bus')
 const KeepAlive = require('./keep-alive')
 
 // Tiny logger to prevent logs in tests
@@ -29,6 +30,10 @@ module.exports = (testRoute) => {
   const events = new EventEmitter()
   const app = express()
   const pubFolder = path.join(__dirname, 'public')
+  const bus = new RedisBus()
+
+  // When this instance receives a payload, emit to all clients
+  bus.on('payload', ({ channel, payload }) => events.emit(channel, payload))
 
   // Used for testing route error handling
   if (testRoute) testRoute(app)
@@ -105,12 +110,17 @@ module.exports = (testRoute) => {
   })
 
   app.post('/:channel', (req, res) => {
-    events.emit(req.params.channel, {
-      ...req.headers,
-      body: req.body,
-      query: req.query,
-      timestamp: Date.now()
+    // We got an event, tell Redis about it
+    bus.emit('payload', {
+      channel: req.params.channel,
+      data: {
+        ...req.headers,
+        body: req.body,
+        query: req.query,
+        timestamp: Date.now()
+      }
     })
+
     res.status(200).end()
   })
 
