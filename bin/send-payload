@@ -1,0 +1,6 @@
+#!/bin/bash
+
+curl -X POST \
+  -d '{ "foo": true }'\
+  -H "Content-Type: application/json" \
+  http://localhost:3000/$1
