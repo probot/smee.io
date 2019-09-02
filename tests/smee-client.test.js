@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 
-const createServer = require('../server')
+const createServer = require('../lib/server')
 const Client = require('smee-client')
 const request = require('supertest')
 const nock = require('nock')
