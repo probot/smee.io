@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 
-const createServer = require('../server')
+const createServer = require('../lib/server')
 const request = require('supertest')
 const EventSource = require('eventsource')
 const Raven = require('raven')
