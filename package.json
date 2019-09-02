@@ -17,6 +17,7 @@
     "@githubprimer/octicons-react": "^8.2.0",
     "connect-sse": "^1.2.0",
     "copy-to-clipboard": "^3.0.8",
+    "dotenv": "^8.1.0",
     "eventsource": "^1.0.5",
     "express": "^4.16.2",
     "express-sslify": "^1.2.0",
