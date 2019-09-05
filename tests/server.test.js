@@ -95,11 +95,6 @@ describe('server', () => {
     it('emits events', async done => {
       const payload = { payload: true }
 
-      await request(server).post(channel)
-        .set('X-Foo', 'bar')
-        .send(payload)
-        .expect(200)
-
       events.addEventListener('message', msg => {
         const data = JSON.parse(msg.data)
         expect(data.body).toEqual(payload)
@@ -108,14 +103,15 @@ describe('server', () => {
         // test is done if all of this gets called
         done()
       })
+
+      await request(server).post(channel)
+        .set('X-Foo', 'bar')
+        .send(payload)
+        .expect(200)
     })
 
     it('POST /:channel/redeliver re-emits a payload', async done => {
       const payload = { payload: true }
-
-      await request(server).post(channel + '/redeliver')
-        .send(payload)
-        .expect(200)
 
       events.addEventListener('message', msg => {
         const data = JSON.parse(msg.data)
@@ -124,6 +120,10 @@ describe('server', () => {
         // test is done if all of this gets called
         done()
       })
+
+      await request(server).post(channel + '/redeliver')
+        .send(payload)
+        .expect(200)
     })
 
     it('POST /:channel returns a 403 for banned channels', async () => {
