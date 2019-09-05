@@ -1,0 +1,41 @@
+const EventBus = require('../lib/event-bus')
+
+describe('EventBus', () => {
+  describe('#emitEvent', () => {
+    it('emits an event to locally without Redis', async () => {
+      const bus = new EventBus()
+      bus.events = { emit: jest.fn() }
+
+      await bus.emitEvent({
+        channel: 'some-channel',
+        payload: { foo: true }
+      })
+
+      expect(bus.events.emit).toHaveBeenCalled()
+      expect(bus.events.emit).toHaveBeenCalledWith('some-channel', { foo: true })
+    })
+
+    it('emits an event to Redis', async () => {
+      process.env.REDIS_URL = 'redis://localhost:6379'
+
+      // Have to redefine so that it registers the Redis connections
+      const bus = new EventBus()
+
+      const pubSpy = jest.spyOn(bus.pub, 'publish')
+
+      await bus.emitEvent({
+        channel: 'some-channel',
+        payload: { foo: true }
+      })
+
+      // Ensure that it published the event to Redis
+      expect(pubSpy).toHaveBeenCalled()
+      expect(pubSpy.mock.calls[0]).toMatchSnapshot()
+
+      // Disconnect and cleanup
+      bus.sub.disconnect()
+      bus.pub.disconnect()
+      delete process.env.REDIS_URL
+    })
+  })
+})
