@@ -33,8 +33,8 @@ describe('EventBus', () => {
       expect(pubSpy.mock.calls[0]).toMatchSnapshot()
 
       // Disconnect and cleanup
-      bus.sub.disconnect()
-      bus.pub.disconnect()
+      await bus.sub.quit()
+      await bus.pub.quit()
       delete process.env.REDIS_URL
     })
 
@@ -57,8 +57,8 @@ describe('EventBus', () => {
       expect(bus.events.emit.mock.calls[0][1]).toEqual({ foo: true })
 
       // Disconnect and cleanup
-      bus.sub.disconnect()
-      bus.pub.disconnect()
+      await bus.sub.quit()
+      await bus.pub.quit()
       delete process.env.REDIS_URL
     })
   })
