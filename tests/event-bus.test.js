@@ -37,5 +37,29 @@ describe('EventBus', () => {
       bus.pub.disconnect()
       delete process.env.REDIS_URL
     })
+
+    it('receives an event and emits it locally', async () => {
+      process.env.REDIS_URL = 'redis://localhost:6379'
+
+      // Have to redefine so that it registers the Redis connections
+      const bus = new EventBus()
+      bus.events = { emit: jest.fn() }
+
+      // Emit the event to the subscriber
+      bus.sub.emit(
+        'message',
+        null,
+        JSON.stringify({ channel: 'example', payload: { foo: true } })
+      )
+
+      expect(bus.events.emit).toHaveBeenCalled()
+      expect(bus.events.emit.mock.calls[0][0]).toBe('example')
+      expect(bus.events.emit.mock.calls[0][1]).toEqual({ foo: true })
+
+      // Disconnect and cleanup
+      bus.sub.disconnect()
+      bus.pub.disconnect()
+      delete process.env.REDIS_URL
+    })
   })
 })
