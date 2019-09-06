@@ -34,6 +34,12 @@ Don't forget to point `smee-client` to your instance of `smee.io`:
 smee --url https://your-smee.io/channel 
 ```
 
+### Running multiple instances of Smee.io
+
+If you need to run multiple instances of the web app, you need a way to share events across those instances. A client may be connected to instance A, so if a relevant event is sent to instance B, instance A needs to know about it too.
+
+For that reason, Smee.io has built-in support for Redis as a message bus. To enable it, just set a `REDIS_URL` environment variable. That will tell the app to use Redis when receiving payloads, and to publish them from each instance of the app.
+
 ## FAQ
 
 **How long do channels live for?**

@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventBus #emitEvent emits an event to Redis 1`] = `
+Array [
+  "global",
+  "{\\"channel\\":\\"some-channel\\",\\"payload\\":{\\"foo\\":true}}",
+]
+`;
