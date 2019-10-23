@@ -26,8 +26,6 @@
     "get-value": "^2.0.6",
     "helmet": "^3.9.0",
     "ioredis": "^4.14.0",
-    "moment": "^2.19.1",
-    "moment-timezone": "^0.5.14",
     "prop-types": "^15.6.0",
     "raven": "^2.6.3",
     "react": "^16.9.0",
