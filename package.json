@@ -24,7 +24,7 @@
     "express": "^4.16.2",
     "express-sslify": "^1.2.0",
     "get-value": "^2.0.6",
-    "helmet": "^3.9.0",
+    "helmet": "^3.21.2",
     "ioredis": "^4.14.0",
     "prop-types": "^15.6.0",
     "raven": "^2.6.3",
