@@ -57,7 +57,7 @@ export default class ListItem extends Component {
             <EventIcon event={event} action={payload.action} />
           </div>
           <span className="input-monospace">{event}</span>
-          <time className="f6" style={{ marginLeft: 'auto' }}>{formatDistance(item.timestamp, new Date())}</time>
+          <time className="f6" style={{ marginLeft: 'auto' }}>{formatDistance(item.timestamp, new Date())} ago</time>
           <button onClick={this.toggleExpanded} className="ellipsis-expander ml-2"><Octicon icon={KebabHorizontal} height={12} /></button>
         </div>
 
