@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { object, bool, func } from 'prop-types'
-import moment from 'moment'
+import { formatDistance } from 'date-fns'
 import ReactJson from 'react-json-view'
 import EventIcon from './EventIcon'
 import Octicon, { KebabHorizontal, Clippy, Sync, Pin } from '@primer/octicons-react'
@@ -57,7 +57,7 @@ export default class ListItem extends Component {
             <EventIcon event={event} action={payload.action} />
           </div>
           <span className="input-monospace">{event}</span>
-          <time className="f6" style={{ marginLeft: 'auto' }}>{moment(item.timestamp).fromNow()}</time>
+          <time className="f6" style={{ marginLeft: 'auto' }}>{formatDistance(item.timestamp, new Date())}</time>
           <button onClick={this.toggleExpanded} className="ellipsis-expander ml-2"><Octicon icon={KebabHorizontal} height={12} /></button>
         </div>
 
