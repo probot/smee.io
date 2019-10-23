@@ -18,6 +18,7 @@
     "@primer/octicons-react": "^9.1.1",
     "connect-sse": "^1.2.0",
     "copy-to-clipboard": "^3.0.8",
+    "date-fns": "^2.6.0",
     "dotenv": "^8.1.0",
     "eventsource": "^1.0.5",
     "express": "^4.16.2",
@@ -25,8 +26,6 @@
     "get-value": "^2.0.6",
     "helmet": "^3.9.0",
     "ioredis": "^4.14.0",
-    "moment": "^2.19.1",
-    "moment-timezone": "^0.5.14",
     "prop-types": "^15.6.0",
     "raven": "^2.6.3",
     "react": "^16.9.0",
@@ -78,6 +77,7 @@
     "node": "10.x.x"
   },
   "jest": {
+    "globalSetup": "./tests/global-setup.js",
     "setupFiles": [
       "./tests/setup.js"
     ],

@@ -1,13 +1,13 @@
 import React from 'react'
 import { string, object, number } from 'prop-types'
-import moment from 'moment-timezone'
+import { format } from 'date-fns'
 
 export default function EventDescription ({
   event,
   payload,
   timestamp
 }) {
-  const formattedTime = moment(timestamp).format('dddd, MMMM Do YYYY, h:mm:ss a')
+  const formattedTime = format(timestamp, 'EEEE, MMMM do yyyy, k:mm:ss aaaa')
   const onARepo = payload.repository && payload.repository.full_name
   const onRepos = payload.repositories && payload.repositories.every(r => r.full_name)
 

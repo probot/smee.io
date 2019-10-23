@@ -1,5 +1,4 @@
 const path = require('path')
-const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
 const glob = require('glob-all')
 const PurifyCSSPlugin = require('purifycss-webpack')
@@ -24,7 +23,6 @@ const cfg = {
     publicPath: '/'
   },
   plugins: [
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // new webpack.optimize.UglifyJsPlugin(),
     new MiniCssExtractPlugin({ filename: '[name].min.css' })
   ],
