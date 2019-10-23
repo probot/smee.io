@@ -7,7 +7,7 @@ export default function EventDescription ({
   payload,
   timestamp
 }) {
-  const formattedTime = format(timestamp, 'dddd, MMMM Do YYYY, h:mm:ss a')
+  const formattedTime = format(timestamp, 'EEEE, MMMM do yyyy, k:mm:ss aaaa')
   const onARepo = payload.repository && payload.repository.full_name
   const onRepos = payload.repositories && payload.repositories.every(r => r.full_name)
 
