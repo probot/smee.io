@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`<EventDescription /> render renders the correct description 1`] = `"There was a issues event received on Wednesday, December 13th 2017, 2:01:14 a.m.."`;

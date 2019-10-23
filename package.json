@@ -77,6 +77,7 @@
     "node": "10.x.x"
   },
   "jest": {
+    "globalSetup": "./tests/global-setup.js",
     "setupFiles": [
       "./tests/setup.js"
     ],
