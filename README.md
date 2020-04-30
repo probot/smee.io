@@ -20,7 +20,7 @@ Smee is a webhook payload delivery service - it receives webhook payloads, and s
 
 ## How it works
 
-Smee works with two components: smee.io, the public website, and the [`smee-client`](https://github.com/probot/smee-client). They talk to each other via [Server-Sent Events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events), a type of connection that allows for messages to be sent from a source to any clients listening.
+Smee works with two components: the public website [smee.io](https://smee.io/) and the [`smee-client`](https://github.com/probot/smee-client). They talk to each other via [Server-Sent Events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events), a type of connection that allows for messages to be sent from a source to any clients listening.
 
 This means that channels are just an abstraction - all Smee does is get a payload and sends it to any _actively connected clients_.
 
