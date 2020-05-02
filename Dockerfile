@@ -53,7 +53,7 @@ ENTRYPOINT [ "npm", "start" ]
 ##############################################################################
 LABEL name="smee-io"
 LABEL version=$BUILD_VERSION
-LABEL description="Smee.IO: https://smee.io/ \r\nReceives payloads then sends them to your locally running application."
+LABEL description="Smee.io: https://smee.io/ \r\nReceives payloads then sends them to your locally running application."
 LABEL org.label-schema.vendor="Smee.io" 
 LABEL org.label-schema.build-date=$BUILD_DATE 
 LABEL org.label-schema.version=$BUILD_VERSION 
