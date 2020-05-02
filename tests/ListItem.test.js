@@ -17,17 +17,6 @@ describe('<ListItem />', () => {
     el = shallow(<ListItem last item={item} pinned={false} togglePinned={togglePinned} />)
   })
 
-  describe('redeliver', () => {
-    it('sets the redelivered state to true', async () => {
-      const fetch = jest.fn(() => Promise.resolve({ status: 200 }))
-      Object.defineProperty(window, 'fetch', { value: fetch, writable: true })
-
-      await el.instance().redeliver()
-      expect(fetch).toHaveBeenCalled()
-      expect(el.state('redelivered')).toBeTruthy()
-    })
-  })
-
   describe('render', () => {
     it('should render with one child', () => {
       expect(el.children().length).toBe(1)
@@ -41,7 +30,7 @@ describe('<ListItem />', () => {
     })
   })
 
-  describe('copy', () => {
+  describe('handleCopy', () => {
     beforeEach(() => {
       el.find('button.ellipsis-expander').simulate('click')
     })
@@ -63,9 +52,18 @@ describe('<ListItem />', () => {
     })
   })
 
-  describe('redeliver', () => {
+  describe('handleRedeliver', () => {
     beforeEach(() => {
       el.find('button.ellipsis-expander').simulate('click')
+    })
+
+    it('sets the redelivered state to true', async () => {
+      const fetch = jest.fn(() => Promise.resolve({ status: 200 }))
+      Object.defineProperty(window, 'fetch', { value: fetch, writable: true })
+
+      await el.instance().handleRedeliver()
+      expect(fetch).toHaveBeenCalled()
+      expect(el.state('redelivered')).toBeTruthy()
     })
 
     it('changes the button\'s label onClick, then onBlur', async () => {

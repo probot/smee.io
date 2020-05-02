@@ -1,7 +1,7 @@
 import React from 'react'
 import EventIcon from '../src/components/EventIcon'
 import { shallow } from 'enzyme'
-import { Globe, IssueOpened, Package } from '@githubprimer/octicons-react'
+import { Globe, IssueOpened, Package } from '@primer/octicons-react'
 
 describe('<EventIcon />', () => {
   describe('render', () => {

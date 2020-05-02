@@ -2,13 +2,14 @@
  * @jest-environment node
  */
 
-const createServer = require('../server')
+const createServer = require('../lib/server')
 const request = require('supertest')
 const EventSource = require('eventsource')
 const Raven = require('raven')
 
 describe('Sentry tests', () => {
   let app, server
+
   beforeEach(() => {
     app = createServer()
     server = app.listen(0, () => {})
@@ -43,7 +44,7 @@ describe('Sentry tests', () => {
 describe('server', () => {
   let app, server, events, url, channel
 
-  beforeEach((done) => {
+  beforeEach(done => {
     channel = '/fake-channel'
     app = createServer()
 
@@ -85,23 +86,16 @@ describe('server', () => {
     })
 
     it('returns a 403 for banned channels', async () => {
-      process.env.BANNED_CHANNELS = 'hello,imbanned,goodbye'
-      const res = await request(server).get(`/imbanned`)
+      const res = await request(server).get('/imbanned')
       expect(res.status).toBe(403)
-      delete process.env.BANNED_CHANNELS
     })
   })
 
   describe('events', () => {
-    it('emits events', async (done) => {
+    it('emits events', async done => {
       const payload = { payload: true }
 
-      await request(server).post(channel)
-        .set('X-Foo', 'bar')
-        .send(payload)
-        .expect(200)
-
-      events.addEventListener('message', (msg) => {
+      events.addEventListener('message', msg => {
         const data = JSON.parse(msg.data)
         expect(data.body).toEqual(payload)
         expect(data['x-foo']).toEqual('bar')
@@ -128,20 +122,25 @@ describe('server', () => {
       })
     })
 
-    it('POST /:channel/redeliver re-emits a payload', async (done) => {
+    it('POST /:channel/redeliver re-emits a payload', async done => {
       const payload = { payload: true }
 
-      await request(server).post(channel + '/redeliver')
-        .send(payload)
-        .expect(200)
-
-      events.addEventListener('message', (msg) => {
+      events.addEventListener('message', msg => {
         const data = JSON.parse(msg.data)
         expect(data).toEqual(payload)
 
         // test is done if all of this gets called
         done()
       })
+
+      await request(server).post(channel + '/redeliver')
+        .send(payload)
+        .expect(200)
+    })
+
+    it('POST /:channel returns a 403 for banned channels', async () => {
+      const res = await request(server).post('/imbanned')
+      expect(res.status).toBe(403)
     })
   })
 })

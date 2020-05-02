@@ -9,3 +9,6 @@ Enzyme.configure({ adapter: new Adapter() })
 global.shallow = shallow
 global.render = render
 global.mount = mount
+
+// Set some BANNED_CHANNELS
+process.env.BANNED_CHANNELS = 'hello,imbanned,goodbye'
