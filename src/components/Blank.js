@@ -28,14 +28,14 @@ export default function Blank () {
             $ npm install --global smee-client
           </pre>
           <p>Then the <code>smee</code> command will forward webhooks from smee.io to your local development environment.</p>
-          <pre><code>
-            $ smee -u {window.location.href}
-          </code></pre>
+          <pre>
+            <code>$ smee -u {window.location.href}</code>
+          </pre>
 
           <p>For usage info:</p>
-          <pre><code>
-            $ smee --help
-          </code></pre>
+          <pre>
+            <code>$ smee --help</code>
+          </pre>
 
           <h3 className="mt-3">Use the Node.js client</h3>
           <pre>

@@ -27,10 +27,12 @@ describe('<EventDescription />', () => {
     })
 
     it('renders the correct description when on multiple repos', () => {
-      const payload = { repositories: [
-        { full_name: 'probot/probot' },
-        { full_name: 'JasonEtco/pizza' }
-      ] }
+      const payload = {
+        repositories: [
+          { full_name: 'probot/probot' },
+          { full_name: 'JasonEtco/pizza' }
+        ]
+      }
       const wrapper = shallow(<EventDescription {...props} payload={payload} />)
       expect(wrapper.children().length).toBe(2)
       expect(wrapper.childAt(1).text()).toBe('This event was triggered against: probot/probotJasonEtco/pizza.')

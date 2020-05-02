@@ -17,20 +17,20 @@ export default class ListItem extends Component {
 
   constructor (props) {
     super(props)
-    this.toggleExpanded = () => this.setState({ expanded: !this.state.expanded })
-    this.copy = this.copy.bind(this)
-    this.redeliver = this.redeliver.bind(this)
+    this.handleToggleExpanded = () => this.setState({ expanded: !this.state.expanded })
+    this.handleCopy = this.handleCopy.bind(this)
+    this.handleRedeliver = this.handleRedeliver.bind(this)
     this.state = { expanded: false, copied: false, redelivered: false }
   }
 
-  copy () {
+  handleCopy () {
     const { item } = this.props
     const event = { event: item['x-github-event'], payload: item.body }
     const copied = copy(JSON.stringify(event))
     this.setState({ copied })
   }
 
-  redeliver () {
+  handleRedeliver () {
     return window.fetch(`${window.location.pathname}/redeliver`, {
       method: 'POST',
       body: JSON.stringify(this.props.item),
@@ -58,7 +58,7 @@ export default class ListItem extends Component {
           </div>
           <span className="input-monospace">{event}</span>
           <time className="f6" style={{ marginLeft: 'auto' }}>{formatDistance(item.timestamp, new Date())} ago</time>
-          <button onClick={this.toggleExpanded} className="ellipsis-expander ml-2"><Octicon icon={KebabHorizontal} height={12} /></button>
+          <button onClick={this.handleToggleExpanded} className="ellipsis-expander ml-2"><Octicon icon={KebabHorizontal} height={12} /></button>
         </div>
 
         {expanded && (
@@ -74,19 +74,22 @@ export default class ListItem extends Component {
                   onClick={() => togglePinned(id)}
                   className={`btn btn-sm tooltipped tooltipped-s ${pinned && 'text-blue'}`}
                   aria-label="Pin this delivery"
-                ><Octicon icon={Pin} /></button>
+                ><Octicon icon={Pin} />
+                </button>
                 <button
                   onBlur={() => this.setState({ copied: false })}
-                  onClick={this.copy}
+                  onClick={this.handleCopy}
                   className="ml-2 btn btn-sm tooltipped tooltipped-s js-copy-btn"
                   aria-label={copied ? 'Copied!' : 'Copy payload to clipboard'}
-                ><Octicon icon={Clippy} /></button>
+                ><Octicon icon={Clippy} />
+                </button>
                 <button
                   onBlur={() => this.setState({ redelivered: false })}
-                  onClick={this.redeliver}
+                  onClick={this.handleRedeliver}
                   className="ml-2 btn btn-sm tooltipped tooltipped-s js-redeliver-btn"
                   aria-label={redelivered ? 'Sent!' : 'Redeliver this payload'}
-                ><Octicon icon={Sync} /></button>
+                ><Octicon icon={Sync} />
+                </button>
               </div>
             </div>
             <hr className="mt-3" />

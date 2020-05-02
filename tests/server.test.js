@@ -86,7 +86,7 @@ describe('server', () => {
     })
 
     it('returns a 403 for banned channels', async () => {
-      const res = await request(server).get(`/imbanned`)
+      const res = await request(server).get('/imbanned')
       expect(res.status).toBe(403)
     })
   })
@@ -127,7 +127,7 @@ describe('server', () => {
     })
 
     it('POST /:channel returns a 403 for banned channels', async () => {
-      const res = await request(server).post(`/imbanned`)
+      const res = await request(server).post('/imbanned')
       expect(res.status).toBe(403)
     })
   })

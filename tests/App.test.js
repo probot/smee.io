@@ -141,14 +141,14 @@ describe('<App />', () => {
     })
 
     it('clears the log state and localStorage', () => {
-      wrapper.instance().clear()
+      wrapper.instance().handleClear()
       expect(wrapper.state('log')).toEqual([])
       expect(localStorage.removeItem).toHaveBeenCalled()
     })
 
     it('does not clear pinned deliveries', () => {
       wrapper.instance().togglePinned(123)
-      wrapper.instance().clear()
+      wrapper.instance().handleClear()
       expect(wrapper.state('log')).toMatchSnapshot()
       expect(localStorage.setItem.mock.calls[0][1]).toMatchSnapshot()
     })
