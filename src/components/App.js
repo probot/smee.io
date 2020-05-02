@@ -10,7 +10,7 @@ export default class App extends Component {
     this.channel = window.location.pathname.substring(1)
     this.storageLimit = 30
 
-    this.clear = this.clear.bind(this)
+    this.handleClear = this.handleClear.bind(this)
 
     this.ref = `smee:log:${this.channel}`
     this.pinnedRef = this.ref + ':pinned'
@@ -77,7 +77,7 @@ export default class App extends Component {
     }
   }
 
-  clear () {
+  handleClear () {
     if (confirm('Are you sure you want to clear the delivery log?')) {
       console.log('Clearing logs')
       const filtered = this.state.log.filter(this.isPinned)
@@ -134,11 +134,8 @@ export default class App extends Component {
             <h1 className="f4">Webhook Deliveries</h1>
             <div className="flex-items-right tooltipped tooltipped-w" aria-label={stateString + ' to event stream'}>
               {this.state.connection
-                ? <Octicon icon={Pulse}
-                  style={{ fill: '#6cc644' }} />
-                : <Octicon icon={Alert}
-                  style={{ fill: 'yellow' }} />
-              }
+                ? <Octicon icon={Pulse} style={{ fill: '#6cc644' }} />
+                : <Octicon icon={Alert} style={{ fill: 'yellow' }} />}
             </div>
           </div>
         </div>
@@ -150,7 +147,7 @@ export default class App extends Component {
                 <label htmlFor="search" className="d-flex flex-items-center f6 text-gray"><Octicon icon={Search} height={12} width={12} className="mr-1" /> Filter by</label>
                 &nbsp;<a className="f6" href="https://github.com/jonschlinkert/get-value" target="_blank" rel="noopener noreferrer">get-value syntax</a>
 
-                <button onClick={this.clear} className="btn btn-sm btn-danger" style={{ marginLeft: 'auto' }}>Clear deliveries</button>
+                <button onClick={this.handleClear} className="btn btn-sm btn-danger" style={{ marginLeft: 'auto' }}>Clear deliveries</button>
               </div>
               <input
                 type="text"
@@ -162,7 +159,7 @@ export default class App extends Component {
               />
             </div>
             {pinnedDeliveries.length > 0 && (
-              <React.Fragment>
+              <>
                 <h6 className="d-flex flex-items-center text-gray mb-1"><Octicon icon={Pin} height={12} width={12} className="mr-1" /> Pinned</h6>
                 <ul className="Box list-style-none pl-0 mb-2">
                   {filtered.filter(this.isPinned).map((item, i, arr) => {
@@ -170,7 +167,7 @@ export default class App extends Component {
                     return <ListItem key={id} pinned togglePinned={this.togglePinned} item={item} last={i === arr.length - 1} />
                   })}
                 </ul>
-              </React.Fragment>
+              </>
             )}
             <h6 className="d-flex flex-items-center text-gray mb-1">All</h6>
             <ul className="Box list-style-none pl-0">
