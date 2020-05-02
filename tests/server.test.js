@@ -111,7 +111,7 @@ describe('server', () => {
     })
 
     it('emits events when content-type is x-www-form-urlencoded', async done => {
-      const payload = { 'payload': 'true' } // UrlEncoded are string:string
+      const payload = { payload: 'true' } // UrlEncoded are string:string
 
       events.addEventListener('message', msg => {
         const data = JSON.parse(msg.data)
