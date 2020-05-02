@@ -127,6 +127,17 @@ export default class App extends Component {
     }
 
     const stateString = this.state.connection ? 'Connected' : 'Not Connected'
+
+    const pinnedLogs = filtered.filter(this.isPinned).map((item, i, arr) => {
+      const id = item['x-github-delivery'] || item.timestamp
+      return <ListItem key={id} pinned togglePinned={this.togglePinned} item={item} last={i === arr.length - 1} />
+    })
+
+    const allLogs = filtered.filter(item => !this.isPinned(item)).map((item, i, arr) => {
+      const id = item['x-github-delivery'] || item.timestamp
+      return <ListItem key={id} pinned={false} togglePinned={this.togglePinned} item={item} last={i === arr.length - 1} />
+    })
+
     return (
       <main>
         <div className="py-2 bg-gray-dark">
@@ -162,20 +173,18 @@ export default class App extends Component {
               <>
                 <h6 className="d-flex flex-items-center text-gray mb-1"><Octicon icon={Pin} height={12} width={12} className="mr-1" /> Pinned</h6>
                 <ul className="Box list-style-none pl-0 mb-2">
-                  {filtered.filter(this.isPinned).map((item, i, arr) => {
-                    const id = item['x-github-delivery'] || item.timestamp
-                    return <ListItem key={id} pinned togglePinned={this.togglePinned} item={item} last={i === arr.length - 1} />
-                  })}
+                  {pinnedLogs}
                 </ul>
               </>
             )}
             <h6 className="d-flex flex-items-center text-gray mb-1">All</h6>
-            <ul className="Box list-style-none pl-0">
-              {filtered.filter(item => !this.isPinned(item)).map((item, i, arr) => {
-                const id = item['x-github-delivery'] || item.timestamp
-                return <ListItem key={id} pinned={false} togglePinned={this.togglePinned} item={item} last={i === arr.length - 1} />
-              })}
-            </ul>
+            {allLogs.length === 0
+              ? <div className="Box p-3 note text-center">All logs are pinned</div>
+              : (
+                <ul className="Box list-style-none pl-0">
+                  {allLogs}
+                </ul>
+              )}
           </div>
         ) : <Blank />}
       </main>
