@@ -1,7 +1,7 @@
 {
-  "name": "smee-server",
-  "version": "0.0.3",
-  "description": "",
+  "name": "smee.io",
+  "private": true,
+  "description": "Receives payloads then sends them to your locally running application.",
   "author": "Jason Etcovitch <jasonetco@gmail.com> (https://github.com/JasonEtco)",
   "license": "ISC",
   "repository": "https://github.com/probot/smee.git",
