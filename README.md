@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="/public/screenshot.png" width="400">
+</p>
+
 <h1 align="center"><a href="https://smee.io">smee.io</a></h1>
 
 <p align="center">
