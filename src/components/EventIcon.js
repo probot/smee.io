@@ -63,5 +63,5 @@ export default function EventIcon ({
 
 EventIcon.propTypes = {
   action: string,
-  event: string.isRequired
+  event: string
 }

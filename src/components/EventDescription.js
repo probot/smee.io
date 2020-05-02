@@ -21,7 +21,7 @@ export default function EventDescription ({
 }
 
 EventDescription.propTypes = {
-  event: string.isRequired,
+  event: string,
   payload: object.isRequired,
   timestamp: number.isRequired
 }
