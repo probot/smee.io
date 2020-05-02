@@ -25,7 +25,7 @@ FROM node:lts-alpine as build-env
 ## > See about optimization: https://www.aptible.com/documentation/enclave/tutorials/faq/dockerfile-caching/npm-dockerfile-caching.html
 WORKDIR /source
 ADD . .
-RUN npm install
+RUN npm ci
 
 ##############################################################################
 # Build the final runtime container
