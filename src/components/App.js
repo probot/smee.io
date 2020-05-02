@@ -107,7 +107,7 @@ export default class App extends Component {
   }
 
   isPinned (item) {
-    const id = item['x-github-delivery']
+    const id = item['x-github-delivery'] || item.timestamp
     return this.state.pinnedDeliveries.includes(id)
   }
 

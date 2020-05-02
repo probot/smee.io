@@ -7,7 +7,7 @@
   "repository": "https://github.com/probot/smee.git",
   "scripts": {
     "start": "node ./index.js",
-    "start-dev": "concurrently \"nodemon --ignore src/ ./index.js\" \"webpack -w\"",
+    "start-dev": "concurrently \"nodemon --ignore src/ ./index.js\" \"webpack -w --mode development\"",
     "build": "webpack -p",
     "test": "jest --coverage && eslint '**/*.js'",
     "test:update": "jest -u",
