@@ -35,4 +35,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: docker build .
+    - run: docker build . -t smee.io
