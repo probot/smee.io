@@ -34,8 +34,10 @@ COPY --chown=node:node --from=bundles /usr/src/smee.io/public /usr/src/smee.io/p
 ENV NODE_ENV production
 
 # Copy various scripts and files
+COPY --chown=node:node public ./public
 COPY --chown=node:node lib ./lib
 COPY --chown=node:node index.js ./index.js
+COPY --chown=node:node package*.json ./
 
 EXPOSE 3000
 CMD ["npm", "start"]
