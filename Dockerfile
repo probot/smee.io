@@ -1,60 +1,41 @@
-####################################################
-# To build your own image: 
-#    > docker build --build-arg BUILD_VERSION=0.0.3 --build-arg BUILD_DATE=2019-05-19 -t probot/smee-io:latest .
-#      (Protips: Add an another -t probot/smee-io:0.0.3 for a tag also for the version)
-# To run your image once it's ready:
-#    > docker run -d -p 3000:3000 --name smee-io probot/smee-io:latest
-# To push the image into your docker repository (e.g.):
-#    > docker push probot/smee-io:latest
-# If you wish to remove your dangling images after build, please do the following:
-#    > docker rmi $(docker images -f “dangling=true” -q)
-####################################################
+# A temporary image that installs dependencies and
+# builds the production-ready front-end bundles.
 
-##############################################################################
-# Build arguments
-##############################################################################
-ARG BUILD_VERSION
-ARG BUILD_DATE
-ARG PORT=3000
+FROM node:12-alpine as bundles
+WORKDIR /usr/src/smee.io
+COPY package*.json ./
+COPY webpack.config.js ./
+COPY .babelrc ./
+COPY src ./src
+RUN ls
+# Install the project's dependencies and build the bundles
+RUN npm ci && npm run build && env NODE_ENV=production npm prune
 
-##############################################################################
-# Build the container with Source code compiled
-##############################################################################
-FROM node:lts-alpine as build-env
-## To allow caching before building, we need to remove 'postinstall' from the package.json
-## > See about optimization: https://www.aptible.com/documentation/enclave/tutorials/faq/dockerfile-caching/npm-dockerfile-caching.html
-WORKDIR /source
-ADD . .
-RUN npm ci
+# --------------------------------------------------------------------------------
 
-##############################################################################
-# Build the final runtime container
-# Note: Port must be > 1024. See https://stackoverflow.com/a/9947222/80527
-##############################################################################
-FROM node:lts-alpine
-ARG PORT=3000
-WORKDIR /app/smee-io
-COPY --from=build-env /source .
-RUN addgroup -S probot && \
-    adduser -S -G probot smee-io && \
-    chown -R smee-io:probot /app
-USER smee-io
+FROM node:12-alpine
+LABEL description="Smee.io"
 
-##############################################################################
-# Define other environment variable if needed.
-##############################################################################
-ENV PORT=$PORT
+# Let's make our home
+WORKDIR /usr/src/smee.io
 
-EXPOSE $PORT
-ENTRYPOINT [ "npm", "start" ]
+RUN chown node:node /usr/src/smee.io -R
 
-##############################################################################
-# Label the Image
-##############################################################################
-LABEL name="smee-io"
-LABEL version=$BUILD_VERSION
-LABEL description="Smee.io: https://smee.io/ \r\nReceives payloads then sends them to your locally running application."
-LABEL org.label-schema.vendor="Smee.io" 
-LABEL org.label-schema.build-date=$BUILD_DATE 
-LABEL org.label-schema.version=$BUILD_VERSION 
-LABEL org.label-schema.docker.cmd="docker run -p 3000:3000 -d probot/smee-io"
+# This should be our normal running user
+USER node
+
+# Copy our dependencies
+COPY --chown=node:node --from=bundles /usr/src/smee.io/node_modules /usr/src/smee.io/node_modules
+
+# Copy our front-end code
+COPY --chown=node:node --from=bundles /usr/src/smee.io/public /usr/src/smee.io/public
+
+# We should always be running in production mode
+ENV NODE_ENV production
+
+# Copy various scripts and files
+COPY --chown=node:node lib ./lib
+COPY --chown=node:node index.js ./index.js
+
+EXPOSE 3000
+CMD ["npm", "start"]
