@@ -3,9 +3,10 @@ import { object, bool, func } from 'prop-types'
 import { formatDistance } from 'date-fns'
 import ReactJson from 'react-json-view'
 import EventIcon from './EventIcon'
-import Octicon, { KebabHorizontal, Clippy, Sync, Pin } from '@primer/octicons-react'
+import Octicon, { KebabHorizontal, Clippy, Sync, Pin, DesktopDownload } from '@primer/octicons-react'
 import EventDescription from './EventDescription'
 import copy from 'copy-to-clipboard'
+import { saveAs } from 'file-saver'
 
 export default class ListItem extends Component {
   static propTypes = {
@@ -20,6 +21,7 @@ export default class ListItem extends Component {
     this.handleToggleExpanded = () => this.setState({ expanded: !this.state.expanded })
     this.handleCopy = this.handleCopy.bind(this)
     this.handleRedeliver = this.handleRedeliver.bind(this)
+    this.handleDownload = this.handleDownload.bind(this)
     this.state = { expanded: false, copied: false, redelivered: false }
   }
 
@@ -28,6 +30,16 @@ export default class ListItem extends Component {
     const event = { event: item['x-github-event'], payload: item.body }
     const copied = copy(JSON.stringify(event))
     this.setState({ copied })
+  }
+
+  handleDownload () {
+    const { item } = this.props
+    const text = JSON.stringify(item, null, 2)
+    const blob = new Blob([text], { type: 'application/json;charset=utf-8' })
+    const id = item['x-github-delivery'] || item.timestamp
+
+    saveAs(blob, `${id}.json`)
+    this.setState({ downloaded: true })
   }
 
   handleRedeliver () {
@@ -43,7 +55,7 @@ export default class ListItem extends Component {
   }
 
   render () {
-    const { expanded, copied, redelivered } = this.state
+    const { expanded, copied, redelivered, downloaded } = this.state
     const { item, last, pinned, togglePinned } = this.props
 
     const event = item['x-github-event']
@@ -82,6 +94,13 @@ export default class ListItem extends Component {
                   className="ml-2 btn btn-sm tooltipped tooltipped-s js-copy-btn"
                   aria-label={copied ? 'Copied!' : 'Copy payload to clipboard'}
                 ><Octicon icon={Clippy} />
+                </button>
+                <button
+                  onBlur={() => this.setState({ downloaded: false })}
+                  onClick={this.handleDownload}
+                  className="ml-2 btn btn-sm tooltipped tooltipped-s js-download-btn"
+                  aria-label={downloaded ? 'Downloaded!' : 'Download this payload'}
+                ><Octicon icon={DesktopDownload} />
                 </button>
                 <button
                   onBlur={() => this.setState({ redelivered: false })}
