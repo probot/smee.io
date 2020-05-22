@@ -24,6 +24,7 @@
     "eventsource": "^1.0.7",
     "express": "^4.17.1",
     "express-sslify": "^1.2.0",
+    "file-saver": "^2.0.2",
     "get-value": "^3.0.1",
     "helmet": "^3.22.0",
     "ioredis": "^4.16.3",

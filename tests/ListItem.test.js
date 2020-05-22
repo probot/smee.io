@@ -52,6 +52,28 @@ describe('<ListItem />', () => {
     })
   })
 
+  describe('handleDownload', () => {
+    beforeEach(() => {
+      el.find('button.ellipsis-expander').simulate('click')
+    })
+
+    it('changes the button\'s label onClick, then onBlur', async () => {
+      let btn = el.find('.js-download-btn')
+      expect(el.state('downloaded')).toBeFalsy()
+      expect(btn.prop('aria-label')).toBe('Download this payload')
+
+      el.setState({ downloaded: true })
+      btn = el.find('.js-download-btn')
+      expect(btn.prop('aria-label')).toBe('Downloaded!')
+
+      btn.simulate('focus')
+      btn.simulate('blur')
+      expect(el.state('downloaded')).toBeFalsy()
+      btn = el.find('.js-download-btn')
+      expect(btn.prop('aria-label')).toBe('Download this payload')
+    })
+  })
+
   describe('handleRedeliver', () => {
     beforeEach(() => {
       el.find('button.ellipsis-expander').simulate('click')
