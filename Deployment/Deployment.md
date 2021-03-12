@@ -1,0 +1,1 @@
+## Helm chart of smee.io for on prem deployment
