@@ -1,7 +1,7 @@
 name: CI
 
 on:
-  pull_request:
+  pull_request: null
   push:
     branches:
       - master
@@ -16,23 +16,24 @@ jobs:
       redis:
         image: redis
         ports:
-        - 6379:6379
+          - 6379:6379
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run build
-    - run: npm test
-    - name: codecov
-      run: npx codecov
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - name: codecov
+        run: npx codecov
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   docker:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - run: docker build . -t smee.io
+      - uses: actions/checkout@v2
+      - run: docker build . -t smee.io
