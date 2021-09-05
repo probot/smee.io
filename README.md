@@ -31,7 +31,7 @@ Smee.io is a simple Node.js application. You can deploy it any way you would dep
 Don't forget to point `smee-client` to your instance of `smee.io`:
 
 ```
-smee --url https://your-smee.io/channel 
+smee --url https://smee.io/<your-channel>
 ```
 
 ### Running multiple instances of Smee.io
