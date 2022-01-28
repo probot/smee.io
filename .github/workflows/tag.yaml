@@ -1,0 +1,35 @@
+name: Create tag
+
+on:
+  pull_request:
+    branches:
+      - master
+    types:
+      - closed
+    paths-ignore:
+      - LICENSE
+      - README.md
+      - .github/**
+      - .*
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  tag:
+    name: Tagging
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Create new tag
+        id: version
+        run: |
+            LAST_TAG=$(git tag --sort=creatordate --sort=v:refname | tail -n1)
+            NEW_TAG=$(echo "$LAST_TAG" | awk '{split(substr($0, 2), a, "."); printf "v%d.%d.%d", a[1], a[2], a[3]+1}')
+            git tag $NEW_TAG
+            git push --tags
