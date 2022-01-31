@@ -26,12 +26,16 @@ This means that channels are just an abstraction - all Smee does is get a payloa
 
 ## Deploying your own Smee.io
 
-Smee.io is a simple Node.js application. You can deploy it any way you would deploy any other Node app. The easier solution is probably Heroku, or you can use the `Dockerfile` found in this repository to deploy a container.
+Smee.io is a simple Node.js application. You can deploy it any way you would deploy any other Node app. The easier solution is probably Heroku, or you can use Docker:
+
+```shell
+docker run -p 3000:3000 ghcr.io/probot/smee.io
+```
 
 Don't forget to point `smee-client` to your instance of `smee.io`:
 
-```
-smee --url https://your-smee.io/channel 
+```shell
+smee --url https://your-smee.io/channel
 ```
 
 ### Running multiple instances of Smee.io
