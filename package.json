@@ -91,10 +91,5 @@
     "env": [
       "jest"
     ]
-  },
-  "renovate": {
-    "extends": [
-      "github>octokit/.github"
-    ]
   }
 }
