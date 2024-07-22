@@ -3,6 +3,7 @@ import ListItem from './ListItem.js'
 import get from 'get-value'
 import { AlertIcon, PulseIcon, SearchIcon, PinIcon } from '@primer/octicons-react'
 import Blank from './Blank.js'
+import { BaseStyles, Button, Heading, Link, Octicon, ThemeProvider, Tooltip } from '@primer/react'
 
 export default class App extends Component {
   constructor (props) {
@@ -139,55 +140,62 @@ export default class App extends Component {
     })
 
     return (
-      <main>
-        <div className="py-2 bg-gray-dark">
-          <div className="container-md text-white p-responsive d-flex flex-items-center flex-justify-between">
-            <h1 className="f4">Webhook Deliveries</h1>
-            <div className="flex-items-right tooltipped tooltipped-w" aria-label={stateString + ' to event stream'}>
-              {this.state.connection
-                ? <PulseIcon style={{ fill: '#6cc644' }} />
-                : <AlertIcon style={{ fill: 'yellow' }} />}
-            </div>
-          </div>
-        </div>
-
-        {log.length > 0 ? (
-          <div className="container-md py-3 p-responsive">
-            <div className="mb-2">
-              <div className="d-flex flex-items-end mb-2">
-                <label htmlFor="search" className="d-flex flex-items-center f6 text-gray"><SearchIcon height={12} width={12} className="mr-1" /> Filter by</label>
-                &nbsp;<a className="f6" href="https://github.com/jonschlinkert/get-value" target="_blank" rel="noopener noreferrer">get-value syntax</a>
-
-                <button onClick={this.handleClear} className="btn btn-sm btn-danger" style={{ marginLeft: 'auto' }}>Clear deliveries</button>
+      <ThemeProvider>
+       <BaseStyles>
+          <main>
+            <div className="py-2 bg-gray-dark">
+              <div className="container-md text-white p-responsive d-flex flex-items-center flex-justify-between">
+                <Heading as="h1" className="f4">Webhook Deliveries</Heading>
+                <Tooltip text={stateString + ' to event stream'} direction='w'>
+                  {this.state.connection
+                    ? <Octicon icon={PulseIcon} fill='#6cc644' />
+                    : <Octicon icon={AlertIcon} fill='yellow' />}
+                </Tooltip>
               </div>
-              <input
-                type="text"
-                id="search"
-                placeholder="repository.name:probot"
-                value={filter}
-                onChange={e => this.setState({ filter: e.target.value })}
-                className="input input-lg width-full Box"
-              />
             </div>
-            {pinnedDeliveries.length > 0 && (
-              <>
-                <h6 className="d-flex flex-items-center text-gray mb-1"><PinIcon height={12} width={12} className="mr-1" /> Pinned</h6>
-                <ul className="Box list-style-none pl-0 mb-2">
-                  {pinnedLogs}
-                </ul>
-              </>
-            )}
-            <h6 className="d-flex flex-items-center text-gray mb-1">All</h6>
-            {allLogs.length === 0
-              ? <div className="Box p-3 note text-center">All logs are pinned</div>
-              : (
-                <ul className="Box list-style-none pl-0">
-                  {allLogs}
-                </ul>
-              )}
-          </div>
-        ) : <Blank />}
-      </main>
+
+            {log.length > 0
+              ? (
+              <div className="container-md py-3 p-responsive">
+                <div className="mb-2">
+                  <div className="d-flex flex-items-end mb-2">
+                    <label htmlFor="search" className="d-flex flex-items-center f6 text-gray"><Octicon icon={SearchIcon} height={12} width={12} className="mr-1" /> Filter by</label>
+                    &nbsp;<Link className="f6" href="https://github.com/jonschlinkert/get-value" target="_blank" rel="noopener noreferrer">get-value syntax</Link>
+
+                    <Button variant="danger" size="small" onClick={this.handleClear} style={{ marginLeft: 'auto' }}>Clear deliveries</Button>
+                  </div>
+                  <TextInput
+                    id="search"
+                    placeholder="repository.name:probot"
+                    value={filter}
+                    onChange={e => this.setState({ filter: e.target.value })}
+                    size='medium'
+                    block={true}
+                    className="Box"
+                  />
+                </div>
+                {pinnedDeliveries.length > 0 && (
+                  <>
+                    <Heading as="h6" className="d-flex flex-items-center text-gray mb-1"><Octicon icon={PinIcon} height={12} width={12} className="mr-1" /> Pinned</Heading>
+                    <ul className="Box list-style-none pl-0 mb-2">
+                      {pinnedLogs}
+                    </ul>
+                  </>
+                )}
+                <Heading as="h6" className="d-flex flex-items-center text-gray mb-1">All</Heading>
+                {allLogs.length === 0
+                  ? <div className="Box p-3 note text-center">All logs are pinned</div>
+                  : (
+                    <ul className="Box list-style-none pl-0">
+                      {allLogs}
+                    </ul>
+                    )}
+              </div>
+                )
+              : <Blank />}
+          </main>
+        </BaseStyles>
+      </ThemeProvider>
     )
   }
 }

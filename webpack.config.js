@@ -23,7 +23,7 @@ const cfg = {
   },
   plugins: [
     // new webpack.optimize.UglifyJsPlugin(),
-    //new MiniCssExtractPlugin({ filename: '[name].min.css' })
+    // new MiniCssExtractPlugin({ filename: '[name].min.css' })
   ],
   module: {
     rules: [{
@@ -35,7 +35,7 @@ const cfg = {
     }, {
       test: /\.scss$/,
       use: [
-        //MiniCssExtractPlugin.loader,
+        // MiniCssExtractPlugin.loader,
         'css-loader',
         {
           loader: 'postcss-loader',

@@ -1,29 +1,36 @@
 import React from 'react'
 import { InfoIcon } from '@primer/octicons-react'
 import CodeExample from './CodeExample.js'
+import { Box, TextInput, Octicon } from '@primer/react'
 
 export default function Blank () {
   return (
     <div className="container-md p-responsive">
       <div className="Box p-3 mt-4 mb-6">
-        <div className="d-flex flex-items-center mb-2">
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginBottom: 2
+        }}>
           <label htmlFor="url">Webhook Proxy URL</label>
-          <span className="ml-2 tooltipped tooltipped-n text-gray-light" aria-label="Tell your service of choice to send webhook payloads to this URL."><InfoIcon/></span>
-        </div>
-        <input
-          type="text"
+          <span className="ml-2 tooltipped tooltipped-n text-gray-light" aria-label="Tell your service of choice to send webhook payloads to this URL."><Octicon icon={InfoIcon}/></span>
+        </Box>
+        <TextInput
           id="url"
           autoFocus
           onFocus={e => e.target.select()}
           readOnly
           value={window.location.href}
-          className="form-control input-xl input-block"
+          className="form-control"
+          block={true}
+          size='large'
         />
         <p className="mt-2 text-gray-light f6">This page will automatically update as things happen.</p>
 
         <hr />
         <div className="mt-4 markdown-body">
-          <h3>Use the CLI</h3>
+          <Heading as="h3">Use the CLI</Heading>
           <pre>
             $ npm install --global smee-client
           </pre>
@@ -37,14 +44,14 @@ export default function Blank () {
             <code>$ smee --help</code>
           </pre>
 
-          <h3 className="mt-3">Use the Node.js client</h3>
+          <Heading as="h3" className="mt-3">Use the Node.js client</Heading>
           <pre>
             $ npm install --save smee-client
           </pre>
           <p>Then:</p>
           <CodeExample />
 
-          <h3 className="mt-3">Using Probot's built-in support</h3>
+          <Heading as="h3" className="mt-3">Using Probot's built-in support</Heading>
           <pre>
             $ npm install --save smee-client
           </pre>

@@ -1,5 +1,10 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "extends": ["standard", "standard-react"],
   "rules": {
     "jsx-quotes": 0

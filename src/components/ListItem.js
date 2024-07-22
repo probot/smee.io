@@ -6,6 +6,7 @@ import EventIcon from './EventIcon.js'
 import { KebabHorizontalIcon, PaperclipIcon, SyncIcon, PinIcon } from '@primer/octicons-react'
 import EventDescription from './EventDescription.js'
 import copy from 'copy-to-clipboard'
+import { Button, Heading, Octicon, Text } from '@primer/react'
 
 export default class ListItem extends Component {
   static propTypes = {
@@ -54,11 +55,11 @@ export default class ListItem extends Component {
       <li className={`p-3 ${last ? '' : 'border-bottom'}`}>
         <div className="d-flex flex-items-center">
           <div className="mr-2" style={{ width: 16 }}>
-            <EventIcon event={event} action={payload.action} />
+            <Octicon icon={EventIcon} event={event} action={payload.action} />
           </div>
-          <span className="input-monospace">{event}</span>
+          <Text as="span" fontFamily="fonts.mono">{event}</Text>
           <time className="f6" style={{ marginLeft: 'auto' }}>{formatDistance(item.timestamp, new Date())} ago</time>
-          <button onClick={this.handleToggleExpanded} className="ellipsis-expander ml-2"><KebabHorizontalIcon height={12} /></button>
+          <Button onClick={this.handleToggleExpanded} className="ellipsis-expander ml-2"><Octicon icon={KebabHorizontalIcon} height={12} /></Button>
         </div>
 
         {expanded && (
@@ -74,7 +75,7 @@ export default class ListItem extends Component {
                   onClick={() => togglePinned(id)}
                   className={`btn btn-sm tooltipped tooltipped-s ${pinned && 'text-blue'}`}
                   aria-label="Pin this delivery"
-                ><PinIcon />
+                ><Octicon icon={PinIcon} />
                 </button>
                 <button
                   onBlur={() => this.setState({ copied: false })}
@@ -88,13 +89,13 @@ export default class ListItem extends Component {
                   onClick={this.handleRedeliver}
                   className="ml-2 btn btn-sm tooltipped tooltipped-s js-redeliver-btn"
                   aria-label={redelivered ? 'Sent!' : 'Redeliver this payload'}
-                ><SyncIcon />
+                ><Octicon icon={SyncIcon} />
                 </button>
               </div>
             </div>
             <hr className="mt-3" />
             <div className="mt-3">
-              <h5 className="mb-2">Payload</h5>
+              <Heading as="h5" className="mb-2">Payload</Heading>
               <ReactJson
                 src={payload}
                 name={id}
