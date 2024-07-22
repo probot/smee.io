@@ -1,7 +1,6 @@
 const path = require('path')
 const autoprefixer = require('autoprefixer')
 const glob = require('glob-all')
-const PurifyCSSPlugin = require('purifycss-webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const browsers = [
@@ -24,7 +23,7 @@ const cfg = {
   },
   plugins: [
     // new webpack.optimize.UglifyJsPlugin(),
-    new MiniCssExtractPlugin({ filename: '[name].min.css' })
+    //new MiniCssExtractPlugin({ filename: '[name].min.css' })
   ],
   module: {
     rules: [{
@@ -36,7 +35,7 @@ const cfg = {
     }, {
       test: /\.scss$/,
       use: [
-        MiniCssExtractPlugin.loader,
+        //MiniCssExtractPlugin.loader,
         'css-loader',
         {
           loader: 'postcss-loader',

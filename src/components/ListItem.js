@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { object, bool, func } from 'prop-types'
 import { formatDistance } from 'date-fns'
-import ReactJson from 'react-json-view'
-import EventIcon from './EventIcon'
-import Octicon, { KebabHorizontal, Clippy, Sync, Pin } from '@primer/octicons-react'
-import EventDescription from './EventDescription'
+import ReactJson from '@microlink/react-json-view'
+import EventIcon from './EventIcon.js'
+import { KebabHorizontalIcon, PaperclipIcon, SyncIcon, PinIcon } from '@primer/octicons-react'
+import EventDescription from './EventDescription.js'
 import copy from 'copy-to-clipboard'
 
 export default class ListItem extends Component {
@@ -58,7 +58,7 @@ export default class ListItem extends Component {
           </div>
           <span className="input-monospace">{event}</span>
           <time className="f6" style={{ marginLeft: 'auto' }}>{formatDistance(item.timestamp, new Date())} ago</time>
-          <button onClick={this.handleToggleExpanded} className="ellipsis-expander ml-2"><Octicon icon={KebabHorizontal} height={12} /></button>
+          <button onClick={this.handleToggleExpanded} className="ellipsis-expander ml-2"><KebabHorizontalIcon height={12} /></button>
         </div>
 
         {expanded && (
@@ -74,21 +74,21 @@ export default class ListItem extends Component {
                   onClick={() => togglePinned(id)}
                   className={`btn btn-sm tooltipped tooltipped-s ${pinned && 'text-blue'}`}
                   aria-label="Pin this delivery"
-                ><Octicon icon={Pin} />
+                ><PinIcon />
                 </button>
                 <button
                   onBlur={() => this.setState({ copied: false })}
                   onClick={this.handleCopy}
                   className="ml-2 btn btn-sm tooltipped tooltipped-s js-copy-btn"
                   aria-label={copied ? 'Copied!' : 'Copy payload to clipboard'}
-                ><Octicon icon={Clippy} />
+                ><PaperclipIcon />
                 </button>
                 <button
                   onBlur={() => this.setState({ redelivered: false })}
                   onClick={this.handleRedeliver}
                   className="ml-2 btn btn-sm tooltipped tooltipped-s js-redeliver-btn"
                   aria-label={redelivered ? 'Sent!' : 'Redeliver this payload'}
-                ><Octicon icon={Sync} />
+                ><SyncIcon />
                 </button>
               </div>
             </div>
