@@ -143,8 +143,8 @@ export default class App extends Component {
       <ThemeProvider>
        <BaseStyles>
           <main>
-            <div className="py-2 bgColor-emphasis">
-              <div className="container-md text-white p-responsive d-flex flex-items-center flex-justify-between">
+            <div className="py-2 bgColor-emphasis fgColor-onEmphasis">
+              <div className="container-md p-responsive d-flex flex-items-center flex-justify-between">
                 <Heading as="h1" className="f4">Webhook Deliveries</Heading>
                 <Tooltip text={stateString + ' to event stream'} direction='w'>
                   {this.state.connection

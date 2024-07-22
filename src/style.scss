@@ -8,7 +8,7 @@ $animationSpeed: 1500ms;
 @import 'styles/github';
 
 body {
-  background-color: var(--base-color-neutral-2);
+  background-color: var(--bgColor-inset);
 }
 
 .btn-outline-blue {
@@ -17,13 +17,13 @@ body {
   border-color: white !important;
 
   &:hover {
-    color: var(--base-color-blue-5);
+    color: var(--bgColor-accent-muted);
     background-color: white;
   }
 }
 
 .blue-700 {
-  color: var(--base-color-blue-7);
+  color: #033d8b;
 }
 
 .input-xl {
