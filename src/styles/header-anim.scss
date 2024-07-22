@@ -14,7 +14,7 @@
     height: 50%;
     top: 25%;
     left: 50%;
-    background-color: $red;
+    background-color: var(--fgColor-danger);
     z-index: 4;
     animation: pulse $animationSpeed ease-in-out infinite;
 
@@ -62,7 +62,7 @@
     border-radius: 50%;
     width: 10%;
     height: 20%;
-    background-color: $blue-300;
+    background-color: var(--base-color-blue-3);
     z-index: 3;
   }
 
@@ -76,7 +76,7 @@
     width: 10%;
     height: 3px;
     z-index: 2;
-    background-color: $blue-800;
+    background-color: var(--base-color-blue-8);
     animation: payload $animationSpeed linear infinite;
 
     @keyframes payload {

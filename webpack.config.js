@@ -6,10 +6,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const browsers = [
   'last 2 versions',
   'ios_saf >= 8',
-  'ie >= 10',
+  'edge >= 12',
   'chrome >= 49',
   'firefox >= 49',
-  '> 1%'
+  '> 1%',
+  'not dead'
 ]
 
 const cfg = {
@@ -23,7 +24,7 @@ const cfg = {
   },
   plugins: [
     // new webpack.optimize.UglifyJsPlugin(),
-    // new MiniCssExtractPlugin({ filename: '[name].min.css' })
+    new MiniCssExtractPlugin({ filename: '[name].min.css' })
   ],
   module: {
     rules: [{
@@ -35,13 +36,14 @@ const cfg = {
     }, {
       test: /\.scss$/,
       use: [
-        // MiniCssExtractPlugin.loader,
+        MiniCssExtractPlugin.loader,
         'css-loader',
         {
           loader: 'postcss-loader',
           options: {
-            sourceMap: true,
-            plugins: () => [autoprefixer(browsers)]
+            postcssOptions: {
+              plugins: [autoprefixer({ overrideBrowserslist: browsers })]
+            }
           }
         }, {
           loader: 'sass-loader',

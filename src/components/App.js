@@ -3,7 +3,7 @@ import ListItem from './ListItem.js'
 import get from 'get-value'
 import { AlertIcon, PulseIcon, SearchIcon, PinIcon } from '@primer/octicons-react'
 import Blank from './Blank.js'
-import { BaseStyles, Button, Heading, Link, Octicon, ThemeProvider, Tooltip } from '@primer/react'
+import { BaseStyles, Button, FormControl, Heading, Link, Octicon, ThemeProvider, Tooltip } from '@primer/react'
 
 export default class App extends Component {
   constructor (props) {
@@ -143,7 +143,7 @@ export default class App extends Component {
       <ThemeProvider>
        <BaseStyles>
           <main>
-            <div className="py-2 bg-gray-dark">
+            <div className="py-2 bgColor-emphasis">
               <div className="container-md text-white p-responsive d-flex flex-items-center flex-justify-between">
                 <Heading as="h1" className="f4">Webhook Deliveries</Heading>
                 <Tooltip text={stateString + ' to event stream'} direction='w'>
@@ -157,13 +157,17 @@ export default class App extends Component {
             {log.length > 0
               ? (
               <div className="container-md py-3 p-responsive">
-                <div className="mb-2">
-                  <div className="d-flex flex-items-end mb-2">
-                    <label htmlFor="search" className="d-flex flex-items-center f6 text-gray"><Octicon icon={SearchIcon} height={12} width={12} className="mr-1" /> Filter by</label>
+                <FormControl className="mb-2">
+                  <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: 2
+                  }}>
+                    <FormControl.label htmlFor="search" className="d-flex flex-items-center f6 text-gray"><Octicon icon={SearchIcon} className="mr-1" sx={{ height: 12, width: 12 }} /> Filter by</FormControl.label>
                     &nbsp;<Link className="f6" href="https://github.com/jonschlinkert/get-value" target="_blank" rel="noopener noreferrer">get-value syntax</Link>
 
                     <Button variant="danger" size="small" onClick={this.handleClear} style={{ marginLeft: 'auto' }}>Clear deliveries</Button>
-                  </div>
+                  </Box>
                   <TextInput
                     id="search"
                     placeholder="repository.name:probot"
@@ -173,10 +177,10 @@ export default class App extends Component {
                     block={true}
                     className="Box"
                   />
-                </div>
+                </FormControl>
                 {pinnedDeliveries.length > 0 && (
                   <>
-                    <Heading as="h6" className="d-flex flex-items-center text-gray mb-1"><Octicon icon={PinIcon} height={12} width={12} className="mr-1" /> Pinned</Heading>
+                    <Heading as="h6" className="d-flex flex-items-center text-gray mb-1"><Octicon icon={PinIcon} className="mr-1" sx={{ height: 12, width: 12 }} /> Pinned</Heading>
                     <ul className="Box list-style-none pl-0 mb-2">
                       {pinnedLogs}
                     </ul>

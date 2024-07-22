@@ -1,7 +1,7 @@
 import React from 'react'
 import { InfoIcon } from '@primer/octicons-react'
 import CodeExample from './CodeExample.js'
-import { Box, TextInput, Octicon } from '@primer/react'
+import { Box, Heading, TextInput, Tooltip, Octicon } from '@primer/react'
 
 export default function Blank () {
   return (
@@ -14,7 +14,7 @@ export default function Blank () {
           marginBottom: 2
         }}>
           <label htmlFor="url">Webhook Proxy URL</label>
-          <span className="ml-2 tooltipped tooltipped-n text-gray-light" aria-label="Tell your service of choice to send webhook payloads to this URL."><Octicon icon={InfoIcon}/></span>
+          <Tooltip direction="n" className="ml-2 text-gray-light" text="Tell your service of choice to send webhook payloads to this URL."><Octicon icon={InfoIcon}/></Tooltip>
         </Box>
         <TextInput
           id="url"

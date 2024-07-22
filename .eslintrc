@@ -5,7 +5,8 @@
       "jsx": true
     }
   },
-  "extends": ["standard", "standard-react"],
+  "plugins": ["primer-react"],
+  "extends": ["standard", "standard-react","plugin:primer-react/recommended"],
   "rules": {
     "jsx-quotes": 0
   },

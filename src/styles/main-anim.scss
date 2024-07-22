@@ -16,7 +16,7 @@ $bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     height: 50%;
     top: 25%;
     left: 50%;
-    background-color: $red;
+    background-color: var(--fgColor-danger);
     z-index: 4;
     transform: translateX(-50%);
 
@@ -27,7 +27,7 @@ $bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
       left: 25%;
       height: 6px;
       border-radius: 2px;
-      background-color: $red-700;
+      background-color: var(--base-color-red-7);
       animation: scaleIn 6000ms ease-in-out infinite;
       transform: scaleX(0);
     }
@@ -51,7 +51,7 @@ $bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     left: 0;
     width: 100%;
     height: 6px;
-    background-color: $gray-300;
+    background-color: var(--base-color-neutral-3);
   }
 
   &__left, &__right, &__line {
@@ -65,13 +65,13 @@ $bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border-radius: 50%;
     width: 15%;
     height: 30%;
-    background-color: $blue;
+    background-color: var(--bgColor-accent-emphasis);
     z-index: 3;
 
     span {
       position: absolute;
-      bottom: -$spacer-2;
-      font-family: $mono-font;
+      bottom: -var(--base-size-8);
+      font-family: var(--fontStack-monospace);
       text-align: center;
       transform: translateY(100%);
     }
@@ -88,7 +88,7 @@ $bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     height: 6px;
     border-radius: 3px;
     z-index: 2;
-    background-color: $blue-800;
+    background-color: var(--base-color-blue-3);
     animation: payload $animationSpeed linear infinite;
 
     @keyframes payload {

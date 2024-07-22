@@ -59,7 +59,7 @@ export default class ListItem extends Component {
           </div>
           <Text as="span" fontFamily="fonts.mono">{event}</Text>
           <time className="f6" style={{ marginLeft: 'auto' }}>{formatDistance(item.timestamp, new Date())} ago</time>
-          <Button onClick={this.handleToggleExpanded} className="ellipsis-expander ml-2"><Octicon icon={KebabHorizontalIcon} height={12} /></Button>
+          <Button onClick={this.handleToggleExpanded} className="ellipsis-expander ml-2"><Octicon icon={KebabHorizontalIcon} sx={{ height: 12 }} /></Button>
         </div>
 
         {expanded && (
