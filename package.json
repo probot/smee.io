@@ -67,7 +67,7 @@
     "purify-css": "^1.2.5",
     "purifycss-webpack": "^0.7.0",
     "raf": "^3.4.1",
-    "sass-loader": "^12.6.0",
+    "sass-loader": "^14.0.0",
     "smee-client": "^1.1.0",
     "style-loader": "^3.3.4",
     "supertest": "^6.3.4",
