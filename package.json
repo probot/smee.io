@@ -61,7 +61,7 @@
     "jest": "^26.6.3",
     "mini-css-extract-plugin": "^2.9.0",
     "nock": "^13.5.4",
-    "node-sass": "^4.14.1",
+    "node-sass": "^9.0.0",
     "nodemon": "^3.1.4",
     "postcss-loader": "^6.2.1",
     "purify-css": "^1.2.5",
