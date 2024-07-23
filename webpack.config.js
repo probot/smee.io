@@ -26,7 +26,7 @@ const cfg = {
     // new webpack.optimize.UglifyJsPlugin(),
     new MiniCssExtractPlugin({ filename: '[name].min.css' })
   ],
-  devtool: process.env.NODE_ENV === "production" ? "no" : "source-map",
+  devtool: process.env.NODE_ENV === 'production' ? 'no' : 'source-map',
   module: {
     rules: [{
       test: /\.jsx?$/,

@@ -4,7 +4,7 @@ import get from 'get-value'
 import { AlertIcon, PulseIcon, SearchIcon, PinIcon } from '@primer/octicons-react'
 import Blank from './Blank.js'
 import { BaseStyles, Button, FormControl, Heading, Link, Octicon, ThemeProvider, Tooltip } from '@primer/react'
-import "../style.scss";
+import '../style.scss'
 
 export default class App extends Component {
   constructor (props) {
