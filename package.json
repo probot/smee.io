@@ -31,7 +31,7 @@
     "raven": "^2.6.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-json-view": "^1.19.1"
+    "react-json-view": "^1.21.3"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
