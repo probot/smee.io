@@ -1,6 +1,12 @@
 {
-  "parser": "babel-eslint",
-  "extends": ["standard", "standard-react"],
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["primer-react"],
+  "extends": ["standard", "standard-react","plugin:primer-react/recommended"],
   "rules": {
     "jsx-quotes": 0
   },
