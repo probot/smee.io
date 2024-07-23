@@ -27,7 +27,7 @@ $bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
       left: 25%;
       height: 6px;
       border-radius: 2px;
-      background-color: var(--base-color-red-7);
+      background-color: #82071e;
       animation: scaleIn 6000ms ease-in-out infinite;
       transform: scaleX(0);
     }
@@ -51,7 +51,7 @@ $bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     left: 0;
     width: 100%;
     height: 6px;
-    background-color: var(--base-color-neutral-3);
+    background-color: #afb8c1;
   }
 
   &__left, &__right, &__line {
@@ -70,7 +70,7 @@ $bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
     span {
       position: absolute;
-      bottom: -var(--base-size-8);
+      bottom: calc(var(--base-size-8) * -1);
       font-family: var(--fontStack-monospace);
       text-align: center;
       transform: translateY(100%);
@@ -88,7 +88,7 @@ $bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     height: 6px;
     border-radius: 3px;
     z-index: 2;
-    background-color: var(--base-color-blue-3);
+    background-color: #54aeff;
     animation: payload $animationSpeed linear infinite;
 
     @keyframes payload {

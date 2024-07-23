@@ -9,12 +9,10 @@ export default function Blank () {
       <div className="Box p-3 mt-4 mb-6">
         <Box sx={{
           display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
           marginBottom: 2
         }}>
           <label htmlFor="url">Webhook Proxy URL</label>
-          <Tooltip direction="n" className="ml-2 text-gray-light" text="Tell your service of choice to send webhook payloads to this URL."><Octicon icon={InfoIcon}/></Tooltip>
+          <Tooltip direction="n" className="ml-2 fgColor-muted" text="Tell your service of choice to send webhook payloads to this URL."><Octicon icon={InfoIcon}/></Tooltip>
         </Box>
         <TextInput
           id="url"

@@ -8,7 +8,7 @@ $animationSpeed: 1500ms;
 @import 'styles/github';
 
 body {
-  background-color: var(--bgColor-inset);
+  background-color: #f6f8fa;
 }
 
 .btn-outline-blue {
@@ -17,7 +17,7 @@ body {
   border-color: white !important;
 
   &:hover {
-    color: var(--bgColor-accent-muted);
+    color: var(--bgColor-accent-emphasis);
     background-color: white;
   }
 }

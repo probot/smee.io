@@ -62,7 +62,7 @@
     border-radius: 50%;
     width: 10%;
     height: 20%;
-    background-color: var(--base-color-blue-3);
+    background-color: #54aeff;
     z-index: 3;
   }
 
@@ -76,7 +76,7 @@
     width: 10%;
     height: 3px;
     z-index: 2;
-    background-color: var(--base-color-blue-8);
+    background-color: #0a3069;
     animation: payload $animationSpeed linear infinite;
 
     @keyframes payload {

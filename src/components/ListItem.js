@@ -82,7 +82,7 @@ export default class ListItem extends Component {
                   onClick={this.handleCopy}
                   className="ml-2 btn btn-sm tooltipped tooltipped-s js-copy-btn"
                   aria-label={copied ? 'Copied!' : 'Copy payload to clipboard'}
-                ><PaperclipIcon />
+                ><Octicon icon={PaperclipIcon} />
                 </button>
                 <button
                   onBlur={() => this.setState({ redelivered: false })}

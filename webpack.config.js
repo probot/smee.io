@@ -26,6 +26,7 @@ const cfg = {
     // new webpack.optimize.UglifyJsPlugin(),
     new MiniCssExtractPlugin({ filename: '[name].min.css' })
   ],
+  devtool: process.env.NODE_ENV === "production" ? "no" : "source-map",
   module: {
     rules: [{
       test: /\.jsx?$/,
@@ -37,7 +38,12 @@ const cfg = {
       test: /\.scss$/,
       use: [
         MiniCssExtractPlugin.loader,
-        'css-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            sourceMap: true
+          }
+        },
         {
           loader: 'postcss-loader',
           options: {
@@ -48,12 +54,7 @@ const cfg = {
         }, {
           loader: 'sass-loader',
           options: {
-            sourceMap: true,
-            sassOptions: {
-              includePaths: [
-                'node_modules'
-              ]
-            }
+            sourceMap: true
           }
         }
       ]
