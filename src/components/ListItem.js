@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { object, bool, func } from 'prop-types'
 import { formatDistance } from 'date-fns'
-import ReactJson from 'react-json-view'
+import ReactJson from '@microlink/react-json-view'
 import EventIcon from './EventIcon'
 import Octicon, { KebabHorizontal, Clippy, Sync, Pin } from '@primer/octicons-react'
 import EventDescription from './EventDescription'

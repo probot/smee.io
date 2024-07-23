@@ -37,22 +37,24 @@ const cfg = {
       test: /\.scss$/,
       use: [
         MiniCssExtractPlugin.loader,
-        'css-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            url: false
+          }
+        },
         {
           loader: 'postcss-loader',
           options: {
             sourceMap: true,
-            plugins: () => [autoprefixer(browsers)]
+            postcssOptions: {
+              plugins: () => [autoprefixer(browsers)]
+            }
           }
         }, {
           loader: 'sass-loader',
           options: {
-            sourceMap: true,
-            sassOptions: {
-              includePaths: [
-                'node_modules'
-              ]
-            }
+            sourceMap: true
           }
         }
       ]
