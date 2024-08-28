@@ -1,6 +1,5 @@
 import React from 'react'
 import { string } from 'prop-types'
-import { Octicon } from '@primer/react'
 import {
   CommentIcon,
   CheckIcon,
@@ -60,7 +59,7 @@ export default function EventIcon ({
     icon = PackageIcon
   }
 
-  return <Octicon icon={icon} />
+  return <icon />
 }
 
 EventIcon.propTypes = {
