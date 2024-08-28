@@ -50,16 +50,16 @@ export default function EventIcon ({
   event
 }) {
   /** @type {import("@primer/octicons-react").Icon} */
-  let icon
+  let Icon
   if (action && iconMap[`${event}.${action}`]) {
-    icon = iconMap[`${event}.${action}`]
+    Icon = iconMap[`${event}.${action}`]
   } else if (iconMap[event]) {
-    icon = iconMap[event]
+    Icon = iconMap[event]
   } else {
-    icon = PackageIcon
+    Icon = PackageIcon
   }
 
-  return <icon />
+  return <Icon />
 }
 
 EventIcon.propTypes = {
