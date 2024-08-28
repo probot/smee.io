@@ -1,23 +1,42 @@
 # A temporary image that installs dependencies and
 # builds the production-ready front-end bundles.
 
-FROM node:14.21.2-alpine as bundles
+FROM node:14.21.2-alpine3.17 as bundles
 WORKDIR /usr/src/smee.io
 COPY package*.json ./
 COPY webpack.config.js ./
 COPY .babelrc ./
 COPY src ./src
 RUN ls
+
+# Install build dependencies
+RUN apk add --no-cache \
+    build-base \
+    curl \
+    gcc \
+    musl-dev \
+    openssl-dev \
+    zlib-dev
+
+# Download and install Python 2.7
+RUN curl -O https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz && \
+    tar -xzf Python-2.7.18.tgz && \
+    cd Python-2.7.18 && \
+    ./configure --enable-optimizations && \
+    make altinstall && \
+    ln -s /usr/local/bin/python2.7 /usr/bin/python2
 # Install the project's dependencies and build the bundles
 RUN npm ci && npm run build && env NODE_ENV=production npm prune
 
 # --------------------------------------------------------------------------------
 
-FROM node:14.21.2-alpine
+FROM node:14.21.2-alpine3.17
 LABEL description="Smee.io"
 
 # Let's make our home
 WORKDIR /usr/src/smee.io
+
+# RUN apk add --no-cache coreutils
 
 RUN chown node:node /usr/src/smee.io -R
 

@@ -1,0 +1,34 @@
+{{- if .Values.ingress.enabled -}}
+{{- $namespace := .Release.Namespace -}}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-{{  $namespace }}-ingress-route
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+  {{- range .Values.ingress.hosts }}
+  {{- $host := .host -}}
+  {{- range .paths }}
+  {{ if eq $namespace "default" }}
+  - match: HostRegexp(`{{ $host }}`, `{subdomain:[a-z]+}.{{ $host }}`) && PathPrefix(`{{ .path }}`)
+  {{ else }}
+  - match: Headers(`x-ins-namespace`, `{{ $namespace }}`) && HostRegexp(`{{ $host }}`, `{subdomain:[a-z]+}.{{ $host }}`) && PathPrefix(`{{ .path }}`)
+  {{ end }}
+    kind: Rule
+    {{ if eq $namespace "default" }}
+    priority: 1
+    {{ else }}
+    priority: 2
+    {{ end }}
+    services:
+      - kind: Service
+        namespace: {{ $namespace }}
+        passHostHeader: true
+        name: {{ .service }}
+        port: {{ .servicePort }}
+  {{ end }}
+  {{ end }}
+{{- end }}
