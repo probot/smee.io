@@ -8,6 +8,24 @@ COPY webpack.config.js ./
 COPY .babelrc ./
 COPY src ./src
 RUN ls
+
+# Install build dependencies
+RUN apk add --no-cache \
+    build-base \
+    curl \
+    gcc \
+    musl-dev \
+    openssl-dev \
+    zlib-dev
+
+# Download and install Python 2.7
+RUN curl -O https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz && \
+    tar -xzf Python-2.7.18.tgz && \
+    cd Python-2.7.18 && \
+    ./configure --enable-optimizations && \
+    make altinstall && \
+    ln -s /usr/local/bin/python2.7 /usr/bin/python2
+
 # Install the project's dependencies and build the bundles
 RUN npm ci && npm run build && env NODE_ENV=production npm prune
 
