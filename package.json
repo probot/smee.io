@@ -75,7 +75,7 @@
     "webpack-cli": "^3.3.11"
   },
   "engines": {
-    "node": "12.x.x"
+    "node": "22.x"
   },
   "jest": {
     "globalSetup": "./tests/global-setup.js",
