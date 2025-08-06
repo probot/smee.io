@@ -31,7 +31,7 @@ const cfg = {
   plugins: [
     new MiniCssExtractPlugin({ filename: '[name].min.css' })
   ],
-  devtool: false,
+  devtool: isProd ? false : 'source-map',
   module: {
     rules: [{
       test: /\.jsx?$/,
@@ -86,7 +86,9 @@ if (isProd) {
   }))
 }
 
-cfg.plugins.push(new CompressionPlugin())
+if (isProd === false) {
+  cfg.plugins.push(new CompressionPlugin())
+}
 
 if (process.env.ANALYZE_BUNDLE) {
   cfg.plugins.push(new BundleAnalyzerPlugin())
