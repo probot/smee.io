@@ -1,6 +1,6 @@
 const path = require('path')
 const autoprefixer = require('autoprefixer')
-const glob = require('glob-all')
+const glob = require('glob')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { PurgeCSSPlugin } = require('purgecss-webpack-plugin')
 
