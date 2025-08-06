@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { object, bool, func } from 'prop-types'
 import { formatDistance } from 'date-fns'
 import ReactJson from '@microlink/react-json-view'
-import EventIcon from './EventIcon.js'
+import EventIcon from './EventIcon.jsx'
 import { KebabHorizontalIcon, PaperclipIcon, SyncIcon, PinIcon } from '@primer/octicons-react'
-import EventDescription from './EventDescription.js'
+import EventDescription from './EventDescription.jsx'
 import copy from 'copy-to-clipboard'
 
 export default class ListItem extends Component {
@@ -52,49 +52,49 @@ export default class ListItem extends Component {
 
     return (
       <li className={`p-3 ${last ? '' : 'border-bottom'}`}>
-        <div className="d-flex flex-items-center">
-          <div className="mr-2" style={{ width: 16 }}>
+        <div className='d-flex flex-items-center'>
+          <div className='mr-2' style={{ width: 16 }}>
             <EventIcon event={event} action={payload.action} />
           </div>
-          <span className="input-monospace">{event}</span>
-          <time className="f6" style={{ marginLeft: 'auto' }}>{formatDistance(item.timestamp, new Date())} ago</time>
-          <button onClick={this.handleToggleExpanded} className="ellipsis-expander ml-2"><KebabHorizontalIcon height={12} /></button>
+          <span className='input-monospace'>{event}</span>
+          <time className='f6' style={{ marginLeft: 'auto' }}>{formatDistance(item.timestamp, new Date())} ago</time>
+          <button onClick={this.handleToggleExpanded} className='ellipsis-expander ml-2'><KebabHorizontalIcon height={12} /></button>
         </div>
 
         {expanded && (
-          <div className="mt-3">
-            <div className="d-flex flex-justify-between flex-items-start">
+          <div className='mt-3'>
+            <div className='d-flex flex-justify-between flex-items-start'>
               <div>
                 <p><strong>Event ID:</strong> <code>{id}</code></p>
                 <EventDescription event={event} payload={payload} timestamp={item.timestamp} />
               </div>
 
-              <div className="d-flex ml-2">
+              <div className='d-flex ml-2'>
                 <button
                   onClick={() => togglePinned(id)}
                   className={`btn btn-sm tooltipped tooltipped-s ${pinned && 'text-blue'}`}
-                  aria-label="Pin this delivery"
+                  aria-label='Pin this delivery'
                 ><PinIcon />
                 </button>
                 <button
                   onBlur={() => this.setState({ copied: false })}
                   onClick={this.handleCopy}
-                  className="ml-2 btn btn-sm tooltipped tooltipped-s js-copy-btn"
+                  className='ml-2 btn btn-sm tooltipped tooltipped-s js-copy-btn'
                   aria-label={copied ? 'Copied!' : 'Copy payload to clipboard'}
                 ><PaperclipIcon />
                 </button>
                 <button
                   onBlur={() => this.setState({ redelivered: false })}
                   onClick={this.handleRedeliver}
-                  className="ml-2 btn btn-sm tooltipped tooltipped-s js-redeliver-btn"
+                  className='ml-2 btn btn-sm tooltipped tooltipped-s js-redeliver-btn'
                   aria-label={redelivered ? 'Sent!' : 'Redeliver this payload'}
                 ><SyncIcon />
                 </button>
               </div>
             </div>
-            <hr className="mt-3" />
-            <div className="mt-3">
-              <h5 className="mb-2">Payload</h5>
+            <hr className='mt-3' />
+            <div className='mt-3'>
+              <h5 className='mb-2'>Payload</h5>
               <ReactJson
                 src={payload}
                 name={id}
