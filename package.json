@@ -1,6 +1,7 @@
 {
   "name": "smee.io",
   "private": true,
+  "sideEffects": false,
   "description": "Receives payloads then sends them to your locally running application.",
   "author": "Jason Etcovitch <jasonetco@gmail.com> (https://github.com/JasonEtco)",
   "license": "ISC",
