@@ -15,7 +15,7 @@ const browsers = [
   '> 1%',
   'not dead'
 ]
-
+/** @type {import('webpack').Configuration} */
 const cfg = {
   entry: {
     main: path.resolve(__dirname, 'src', 'main.js')
