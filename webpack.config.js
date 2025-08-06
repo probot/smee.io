@@ -20,7 +20,7 @@ const browsers = [
 /** @type {import('webpack').Configuration} */
 const cfg = {
   entry: {
-    main: path.resolve(__dirname, 'src', 'main.js')
+    main: path.resolve(__dirname, 'src', 'main.jsx')
   },
   mode: isProd ? 'production' : 'development',
   output: {
@@ -78,7 +78,7 @@ const cfg = {
 if (isProd) {
   cfg.plugins.push(new PurgeCSSPlugin({
     minimize: true,
-    moduleExtensions: ['.js'],
+    moduleExtensions: ['.js', '.jsx'],
     paths: glob([
       path.join(__dirname, 'src', '**/*.js'),
       path.join(__dirname, 'public', '*.html')
