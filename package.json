@@ -37,7 +37,7 @@
     "@babel/runtime": "^7.9.6",
     "@primer/css": "^14.3.0",
     "@primer/octicons-react": "^9.6.0",
-    "autoprefixer": "^9.7.6",
+    "autoprefixer": "^10.0.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "concurrently": "^5.2.0",
