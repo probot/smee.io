@@ -16,7 +16,7 @@
     "@microlink/react-json-view": "^1.23.1",
     "@primer/css": "^21.0.0",
     "@primer/octicons-react": "^19.11.0",
-    "@primer/primitives": "^8.2.3",
+    "@primer/primitives": "^10.7.0",
     "@sentry/node": "^8.19.0",
     "connect-sse": "^1.2.0",
     "copy-to-clipboard": "^3.3.1",
