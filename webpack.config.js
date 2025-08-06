@@ -2,6 +2,9 @@ const path = require('path')
 const autoprefixer = require('autoprefixer')
 const glob = require('glob-all')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const { EsbuildPlugin } = require('esbuild-loader')
+
+const isProd = process.env.NODE_ENV === 'production'
 
 const browsers = [
   'last 2 versions',
@@ -23,16 +26,20 @@ const cfg = {
     publicPath: '/'
   },
   plugins: [
-    // new webpack.optimize.UglifyJsPlugin(),
     new MiniCssExtractPlugin({ filename: '[name].min.css' })
   ],
-  devtool: process.env.NODE_ENV === 'production' ? 'no' : 'source-map',
+  devtool: isProd ? 'no' : 'source-map',
   module: {
     rules: [{
       test: /\.jsx?$/,
       exclude: /node_modules/,
       use: {
-        loader: 'babel-loader'
+        loader: 'esbuild-loader',
+        options: {
+          loader: 'jsx',
+          target: 'es2022',
+          sourcemap: process.env.NODE_ENV !== 'production'
+        }
       }
     }, {
       test: /\.scss$/,
@@ -65,7 +72,7 @@ const cfg = {
   }
 }
 
-if (process.env.NODE_ENV === 'production') {
+if (isProd) {
   cfg.plugins.push(new PurifyCSSPlugin({
     minimize: true,
     moduleExtensions: ['.js'],
