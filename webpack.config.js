@@ -86,7 +86,7 @@ if (isProd) {
   }))
 }
 
-if (isProd === false) {
+if (isProd) {
   cfg.plugins.push(new CompressionPlugin())
 }
 
