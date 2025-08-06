@@ -1,6 +1,9 @@
 import React from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import './style.scss'
 import App from './components/App'
 
-render(<App />, document.querySelector('.mount'))
+const container = document.querySelector('.mount')
+const root = createRoot(container);
+
+root.render(<App />)
