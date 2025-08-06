@@ -1,70 +1,83 @@
 const path = require('path')
 const autoprefixer = require('autoprefixer')
-const glob = require('glob-all')
-const PurifyCSSPlugin = require('purifycss-webpack')
+const { globSync: glob } = require('tinyglobby')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const { PurgeCSSPlugin } = require('purgecss-webpack-plugin')
+
+const isProd = process.env.NODE_ENV === 'production'
 
 const browsers = [
   'last 2 versions',
   'ios_saf >= 8',
-  'ie >= 10',
+  'edge >= 12',
   'chrome >= 49',
   'firefox >= 49',
-  '> 1%'
+  '> 1%',
+  'not dead'
 ]
-
+/** @type {import('webpack').Configuration} */
 const cfg = {
   entry: {
     main: path.resolve(__dirname, 'src', 'main.js')
   },
+  mode: isProd ? 'production' : 'development',
   output: {
     path: path.join(__dirname, 'public'),
     filename: '[name].min.js',
     publicPath: '/'
   },
   plugins: [
-    // new webpack.optimize.UglifyJsPlugin(),
     new MiniCssExtractPlugin({ filename: '[name].min.css' })
   ],
+  devtool: isProd ? false : 'source-map',
   module: {
     rules: [{
       test: /\.jsx?$/,
       exclude: /node_modules/,
       use: {
-        loader: 'babel-loader'
+        loader: 'esbuild-loader',
+        options: {
+          loader: 'jsx',
+          target: 'es2022',
+          sourcemap: process.env.NODE_ENV !== 'production'
+        }
       }
     }, {
       test: /\.scss$/,
       use: [
         MiniCssExtractPlugin.loader,
-        'css-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            sourceMap: true
+          }
+        },
         {
           loader: 'postcss-loader',
           options: {
-            sourceMap: true,
-            plugins: () => [autoprefixer(browsers)]
+            postcssOptions: {
+              plugins: [autoprefixer({ overrideBrowserslist: browsers })]
+            }
           }
         }, {
           loader: 'sass-loader',
           options: {
-            sourceMap: true,
-            sassOptions: {
-              includePaths: [
-                'node_modules'
-              ]
-            }
+            sourceMap: true
           }
         }
       ]
     }]
+  },
+  resolve: {
+    modules: ['node_modules', path.resolve(__dirname, 'src')],
   }
 }
 
-if (process.env.NODE_ENV === 'production') {
-  cfg.plugins.push(new PurifyCSSPlugin({
+if (isProd) {
+  cfg.plugins.push(new PurgeCSSPlugin({
     minimize: true,
     moduleExtensions: ['.js'],
-    paths: glob.sync([
+    paths: glob([
       path.join(__dirname, 'src', '**/*.js'),
       path.join(__dirname, 'public', '*.html')
     ])

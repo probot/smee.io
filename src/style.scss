@@ -1,6 +1,6 @@
 @import '@primer/css/index.scss';
 
-$blue-650: mix($blue-600, $blue-700, 50%);
+$blue-650: mix(#0550ae, #033d8b, 50%);
 $animationSpeed: 1500ms;
 
 @import 'styles/header-anim';
@@ -8,7 +8,7 @@ $animationSpeed: 1500ms;
 @import 'styles/github';
 
 body {
-  background-color: $gray-200;
+  background-color: #f6f8fa !important;
 }
 
 .btn-outline-blue {
@@ -17,18 +17,18 @@ body {
   border-color: white !important;
 
   &:hover {
-    color: $blue-500;
+    color: var(--bgColor-accent-emphasis);
     background-color: white;
   }
 }
 
 .blue-700 {
-  color: $blue-700;
+  color: #033d8b;
 }
 
 .input-xl {
-  font-size: $h1-size;
-  padding: $spacer-2;
+  font-size: var(--text-title-size-large);
+  padding: var(--base-size-8);
   line-height: 1.5;
 }
 

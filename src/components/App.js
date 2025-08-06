@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import ListItem from './ListItem'
+import ListItem from './ListItem.js'
 import get from 'get-value'
-import Octicon, { Alert, Pulse, Search, Pin } from '@primer/octicons-react'
-import Blank from './Blank'
+import { AlertIcon, PulseIcon, SearchIcon, PinIcon } from '@primer/octicons-react'
+import Blank from './Blank.js'
 
 export default class App extends Component {
   constructor (props) {
@@ -140,13 +140,13 @@ export default class App extends Component {
 
     return (
       <main>
-        <div className="py-2 bg-gray-dark">
-          <div className="container-md text-white p-responsive d-flex flex-items-center flex-justify-between">
+        <div className="py-2 bgColor-emphasis fgColor-onEmphasis">
+          <div className="container-md p-responsive d-flex flex-items-center flex-justify-between">
             <h1 className="f4">Webhook Deliveries</h1>
             <div className="flex-items-right tooltipped tooltipped-w" aria-label={stateString + ' to event stream'}>
               {this.state.connection
-                ? <Octicon icon={Pulse} style={{ fill: '#6cc644' }} />
-                : <Octicon icon={Alert} style={{ fill: 'yellow' }} />}
+                ? <PulseIcon style={{ fill: '#6cc644' }} />
+                : <AlertIcon style={{ fill: 'yellow' }} />}
             </div>
           </div>
         </div>
@@ -155,7 +155,7 @@ export default class App extends Component {
           <div className="container-md py-3 p-responsive">
             <div className="mb-2">
               <div className="d-flex flex-items-end mb-2">
-                <label htmlFor="search" className="d-flex flex-items-center f6 text-gray"><Octicon icon={Search} height={12} width={12} className="mr-1" /> Filter by</label>
+                <label htmlFor="search" className="d-flex flex-items-center f6 text-gray"><SearchIcon height={12} width={12} className="mr-1" /> Filter by</label>
                 &nbsp;<a className="f6" href="https://github.com/jonschlinkert/get-value" target="_blank" rel="noopener noreferrer">get-value syntax</a>
 
                 <button onClick={this.handleClear} className="btn btn-sm btn-danger" style={{ marginLeft: 'auto' }}>Clear deliveries</button>
@@ -171,7 +171,7 @@ export default class App extends Component {
             </div>
             {pinnedDeliveries.length > 0 && (
               <>
-                <h6 className="d-flex flex-items-center text-gray mb-1"><Octicon icon={Pin} height={12} width={12} className="mr-1" /> Pinned</h6>
+                <h6 className="d-flex flex-items-center text-gray mb-1"><PinIcon height={12} width={12} className="mr-1" /> Pinned</h6>
                 <ul className="Box list-style-none pl-0 mb-2">
                   {pinnedLogs}
                 </ul>

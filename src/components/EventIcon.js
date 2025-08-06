@@ -1,64 +1,65 @@
 import React from 'react'
 import { string } from 'prop-types'
-import Octicon, {
-  Comment,
-  Check,
-  RepoForked,
-  Eye,
-  Checklist,
-  CloudUpload,
-  Globe,
-  Hubot,
-  Milestone,
-  Project,
-  Stop,
-  Note,
-  RepoPush,
-  Package,
-  GitPullRequest,
-  Bookmark,
-  IssueOpened,
-  IssueClosed
+import {
+  CommentIcon,
+  CheckIcon,
+  RepoForkedIcon,
+  EyeIcon,
+  ChecklistIcon,
+  UploadIcon,
+  GlobeIcon,
+  HubotIcon,
+  MilestoneIcon,
+  ProjectIcon,
+  StopIcon,
+  NoteIcon,
+  RepoPushIcon,
+  PackageIcon,
+  GitPullRequestIcon,
+  BookmarkIcon,
+  IssueOpenedIcon,
+  IssueClosedIcon
 } from '@primer/octicons-react'
 
 const iconMap = {
-  push: RepoPush,
-  pull_request: GitPullRequest,
-  label: Bookmark,
-  'issues.opened': IssueOpened,
-  'issues.closed': IssueClosed,
-  issue_comment: Comment,
-  status: Check,
-  fork: RepoForked,
-  watch: Eye,
-  check_run: Checklist,
-  check_suite: Checklist,
-  deployment: CloudUpload,
-  deployment_status: CloudUpload,
-  ping: Globe,
-  installation: Hubot,
-  installation_repositories: Hubot,
-  milestone: Milestone,
-  project: Project,
-  project_card: Note,
-  project_column: Project,
-  repository_vulnerability_alert: Stop
+  push: RepoPushIcon,
+  pull_request: GitPullRequestIcon,
+  label: BookmarkIcon,
+  'issues.opened': IssueOpenedIcon,
+  'issues.closed': IssueClosedIcon,
+  issue_comment: CommentIcon,
+  status: CheckIcon,
+  fork: RepoForkedIcon,
+  watch: EyeIcon,
+  check_run: ChecklistIcon,
+  check_suite: ChecklistIcon,
+  deployment: UploadIcon,
+  deployment_status: UploadIcon,
+  ping: GlobeIcon,
+  installation: HubotIcon,
+  installation_repositories: HubotIcon,
+  milestone: MilestoneIcon,
+  project: ProjectIcon,
+  project_card: NoteIcon,
+  project_column: ProjectIcon,
+  repository_vulnerability_alert: StopIcon
 }
 
 export default function EventIcon ({
   action,
   event
 }) {
-  let icon
+  /** @type {import("@primer/octicons-react").Icon} */
+  let Icon
   if (action && iconMap[`${event}.${action}`]) {
-    icon = iconMap[`${event}.${action}`]
+    Icon = iconMap[`${event}.${action}`]
   } else if (iconMap[event]) {
-    icon = iconMap[event]
+    Icon = iconMap[event]
   } else {
-    icon = Package
+    Icon = PackageIcon
   }
 
-  return <Octicon icon={icon} />
+  return <Icon />
 }
 
 EventIcon.propTypes = {
