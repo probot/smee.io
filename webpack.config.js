@@ -2,7 +2,7 @@ const path = require('path')
 const autoprefixer = require('autoprefixer')
 const glob = require('glob-all')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { EsbuildPlugin } = require('esbuild-loader')
+const { PurgeCSSPlugin } = require('purgecss-webpack-plugin')
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -20,6 +20,7 @@ const cfg = {
   entry: {
     main: path.resolve(__dirname, 'src', 'main.js')
   },
+  mode: 'production',
   output: {
     path: path.join(__dirname, 'public'),
     filename: '[name].min.js',
@@ -72,15 +73,13 @@ const cfg = {
   }
 }
 
-if (isProd) {
-  cfg.plugins.push(new PurifyCSSPlugin({
-    minimize: true,
-    moduleExtensions: ['.js'],
-    paths: glob.sync([
-      path.join(__dirname, 'src', '**/*.js'),
-      path.join(__dirname, 'public', '*.html')
-    ])
-  }))
-}
+cfg.plugins.push(new PurgeCSSPlugin({
+  minimize: true,
+  moduleExtensions: ['.js'],
+  paths: glob.sync([
+    path.join(__dirname, 'src', '**/*.js'),
+    path.join(__dirname, 'public', '*.html')
+  ])
+}))
 
 module.exports = cfg
