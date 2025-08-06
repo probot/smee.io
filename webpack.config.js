@@ -3,6 +3,8 @@ const autoprefixer = require('autoprefixer')
 const { globSync: glob } = require('tinyglobby')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { PurgeCSSPlugin } = require('purgecss-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const CompressionPlugin = require('compression-webpack-plugin')
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -29,7 +31,7 @@ const cfg = {
   plugins: [
     new MiniCssExtractPlugin({ filename: '[name].min.css' })
   ],
-  devtool: isProd ? false : 'source-map',
+  devtool: false,
   module: {
     rules: [{
       test: /\.jsx?$/,
@@ -82,6 +84,12 @@ if (isProd) {
       path.join(__dirname, 'public', '*.html')
     ])
   }))
+}
+
+cfg.plugins.push(new CompressionPlugin())
+
+if (process.env.ANALYZE_BUNDLE) {
+  cfg.plugins.push(new BundleAnalyzerPlugin())
 }
 
 module.exports = cfg

@@ -35,6 +35,7 @@
     "@primer/primitives": "^11.0.0",
     "@primer/view-components": "^0.43.6",
     "autoprefixer": "^10.4.19",
+    "compression-webpack-plugin": "^11.1.0",
     "concurrently": "^8.2.2",
     "copy-to-clipboard": "^3.3.3",
     "copy-webpack-plugin": "^13.0.0",
@@ -67,6 +68,7 @@
     "supertest": "^7.0.0",
     "tinyglobby": "^0.2.14",
     "webpack": "^5.0.0",
+    "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "^5.0.0"
   },
   "engines": {
