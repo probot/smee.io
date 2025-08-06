@@ -29,7 +29,7 @@ const cfg = {
   plugins: [
     new MiniCssExtractPlugin({ filename: '[name].min.css' })
   ],
-  devtool: isProd ? 'no' : 'source-map',
+  devtool: isProd ? false : 'source-map',
   module: {
     rules: [{
       test: /\.jsx?$/,
