@@ -8,7 +8,9 @@ COPY webpack.config.js ./
 COPY src ./src
 RUN ls
 # Install the project's dependencies and build the bundles
-RUN npm ci && npm run build && env NODE_ENV=production npm prune
+RUN npm ci
+RUN env NODE_ENV=production npm run build
+RUN env NODE_ENV=production npm prune
 
 # --------------------------------------------------------------------------------
 
