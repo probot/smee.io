@@ -1,6 +1,6 @@
 const path = require('path')
 const autoprefixer = require('autoprefixer')
-const glob = require('glob')
+const { globSync: glob } = require('tinyglobby')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { PurgeCSSPlugin } = require('purgecss-webpack-plugin')
 
@@ -20,7 +20,7 @@ const cfg = {
   entry: {
     main: path.resolve(__dirname, 'src', 'main.js')
   },
-  mode: 'production',
+  mode: isProd ? 'production' : 'development',
   output: {
     path: path.join(__dirname, 'public'),
     filename: '[name].min.js',
@@ -73,13 +73,15 @@ const cfg = {
   }
 }
 
-cfg.plugins.push(new PurgeCSSPlugin({
-  minimize: true,
-  moduleExtensions: ['.js'],
-  paths: glob.sync([
-    path.join(__dirname, 'src', '**/*.js'),
-    path.join(__dirname, 'public', '*.html')
-  ])
-}))
+if (isProd) {
+  cfg.plugins.push(new PurgeCSSPlugin({
+    minimize: true,
+    moduleExtensions: ['.js'],
+    paths: glob([
+      path.join(__dirname, 'src', '**/*.js'),
+      path.join(__dirname, 'public', '*.html')
+    ])
+  }))
+}
 
 module.exports = cfg
