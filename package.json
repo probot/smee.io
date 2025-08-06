@@ -35,7 +35,7 @@
     "@primer/primitives": "^11.0.0",
     "@primer/view-components": "^0.43.6",
     "autoprefixer": "^10.4.19",
-    "concurrently": "^8.2.2",
+    "concurrently": "^9.0.0",
     "copy-to-clipboard": "^3.3.3",
     "copy-webpack-plugin": "^13.0.0",
     "css-loader": "^7.1.2",
