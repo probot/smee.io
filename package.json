@@ -46,6 +46,7 @@
     "eslint-plugin-promise": "^7.0.0",
     "eslint-plugin-react": "^7.35.0",
     "get-value": "^4.0.1",
+    "globals": "^16.3.0",
     "html-webpack-plugin": "^5.6.0",
     "jest": "^29.7.0",
     "mini-css-extract-plugin": "^2.9.0",
