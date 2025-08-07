@@ -126,16 +126,18 @@ export default class App extends Component {
       })
     }
 
+    const now = Date.now()
+
     const stateString = this.state.connection ? 'Connected' : 'Not Connected'
 
     const pinnedLogs = filtered.filter(this.isPinned).map((item, i, arr) => {
       const id = item['x-github-delivery'] || item.timestamp
-      return <ListItem key={id} pinned togglePinned={this.togglePinned} item={item} last={i === arr.length - 1} />
+      return <ListItem now={now} key={id} pinned togglePinned={this.togglePinned} item={item} last={i === arr.length - 1} />
     })
 
     const allLogs = filtered.filter(item => !this.isPinned(item)).map((item, i, arr) => {
       const id = item['x-github-delivery'] || item.timestamp
-      return <ListItem key={id} pinned={false} togglePinned={this.togglePinned} item={item} last={i === arr.length - 1} />
+      return <ListItem now={now} key={id} pinned={false} togglePinned={this.togglePinned} item={item} last={i === arr.length - 1} />
     })
 
     return (

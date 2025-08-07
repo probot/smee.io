@@ -1,20 +1,61 @@
 import React, { Component } from 'react'
-import { object, bool, func } from 'prop-types'
-import { formatDistance } from 'date-fns'
+import { object, bool, func, number } from 'prop-types'
 import ReactJson from '@microlink/react-json-view'
 import EventIcon from './EventIcon.jsx'
 import { KebabHorizontalIcon, PaperclipIcon, SyncIcon, PinIcon } from '@primer/octicons-react'
 import EventDescription from './EventDescription.jsx'
 import copy from 'copy-to-clipboard'
 
+function formatDistance (time) {
+  if (time < 30000) {
+    return 'less than a minute'
+  } else if (time < 90000) {
+    return '1 minute'
+  } else if (time < 2670000) {
+    return `${~~(time / 60000)} minutes`
+  } else if (time < 3570000) {
+    return 'about 1 hour'
+  } else if (time < 86370000) {
+    return `${~~(time / 3600000)} hours`
+  } else if (time < 151170000) {
+    return 'about 1 day'
+  } else if (time < 2591970000) {
+    return `${~~(time / 86400000)} days`
+  } else if (time < 3887970000) {
+    return 'about 1 month'
+  } else if (time < 5183970000) {
+    return 'about 2 months'
+  } else if (time < 31536000000) {
+    return `${~~(time / 2592000000)} months`
+  } else if (time < 39312000000) {
+    return 'about 1 year'
+  } else if (time < 54864000000) {
+    return 'over 1 year'
+  } else if (time < 63072000000) {
+    return 'almost 2 years'
+  } else {
+    const years = ~~(time / 31536000000)
+    const rest = time % 31536000000
+    
+    if (rest < 7776000000) {
+      return `about ${years} years`
+    } else if (rest < 23328000000) {
+      return `over ${years} years`
+    } else {
+      return `almost ${years + 1} years`
+    }
+  }
+}
+
 export default class ListItem extends Component {
   static propTypes = {
     item: object.isRequired,
     pinned: bool.isRequired,
     togglePinned: func.isRequired,
-    last: bool.isRequired
+    last: bool.isRequired,
+    now: number.isRequired
   }
-
+  
   constructor (props) {
     super(props)
     this.handleToggleExpanded = () => this.setState({ expanded: !this.state.expanded })
@@ -44,7 +85,7 @@ export default class ListItem extends Component {
 
   render () {
     const { expanded, copied, redelivered } = this.state
-    const { item, last, pinned, togglePinned } = this.props
+    const { now, item, last, pinned, togglePinned } = this.props
 
     const event = item['x-github-event']
     const payload = item.body
@@ -57,7 +98,7 @@ export default class ListItem extends Component {
             <EventIcon event={event} action={payload.action} />
           </div>
           <span className='input-monospace'>{event}</span>
-          <time className='f6' style={{ marginLeft: 'auto' }}>{formatDistance(item.timestamp, new Date())} ago</time>
+          <time className='f6' style={{ marginLeft: 'auto' }}>{formatDistance(now - item.timestamp)} ago</time>
           <button onClick={this.handleToggleExpanded} className='ellipsis-expander ml-2'><KebabHorizontalIcon height={12} /></button>
         </div>
 
