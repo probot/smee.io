@@ -1,5 +1,4 @@
 import React from 'react'
-import { string } from 'prop-types'
 import {
   CommentIcon,
   CheckIcon,
@@ -60,9 +59,4 @@ export default function EventIcon ({
   }
 
   return <Icon />
-}
-
-EventIcon.propTypes = {
-  action: string,
-  event: string
 }

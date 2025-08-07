@@ -1,5 +1,4 @@
 import React from 'react'
-import { string, object, number } from 'prop-types'
 
 const DayLookup = [
   'Sunday',
@@ -36,7 +35,7 @@ const DateSuffixLookup = [
 
 /** @param {Date} date */
 function formatDate (date) {
-  return `${DayLookup[date.getDay()]}, ${MonthLookup[date.getMonth()]} ${DateSuffixLookup[date.getDate()]} ${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} ${date.getHours() >= 12 ? 'p.m. ': 'a.m.'}`
+  return `${DayLookup[date.getDay()]}, ${MonthLookup[date.getMonth()]} ${DateSuffixLookup[date.getDate()]} ${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} ${date.getHours() >= 12 ? 'p.m. ' : 'a.m.'}`
 }
 
 export default function EventDescription ({
@@ -55,10 +54,4 @@ export default function EventDescription ({
       {onRepos && <p className='mt-0'>This event was triggered against: {payload.repositories.map(r => <span key={r.full_name}>{r.full_name}</span>)}.</p>}
     </div>
   )
-}
-
-EventDescription.propTypes = {
-  event: string,
-  payload: object.isRequired,
-  timestamp: number.isRequired
 }

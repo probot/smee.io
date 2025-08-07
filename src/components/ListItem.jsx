@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { object, bool, func, number } from 'prop-types'
 import ReactJson from '@microlink/react-json-view'
 import EventIcon from './EventIcon.jsx'
 import { KebabHorizontalIcon, PaperclipIcon, SyncIcon, PinIcon } from '@primer/octicons-react'
@@ -36,7 +35,7 @@ function formatDistance (time) {
   } else {
     const years = ~~(time / 31536000000)
     const rest = time % 31536000000
-    
+
     if (rest < 7776000000) {
       return `about ${years} years`
     } else if (rest < 23328000000) {
@@ -48,14 +47,6 @@ function formatDistance (time) {
 }
 
 export default class ListItem extends Component {
-  static propTypes = {
-    item: object.isRequired,
-    pinned: bool.isRequired,
-    togglePinned: func.isRequired,
-    last: bool.isRequired,
-    now: number.isRequired
-  }
-  
   constructor (props) {
     super(props)
     this.handleToggleExpanded = () => this.setState({ expanded: !this.state.expanded })
