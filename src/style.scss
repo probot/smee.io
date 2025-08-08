@@ -8,7 +8,7 @@ $animationSpeed: 1500ms;
 @import 'styles/github';
 
 body {
-  background-color: #f6f8fa !important;
+  background-color: #e1e4e8 !important;
 }
 
 .btn-outline-blue {
@@ -20,6 +20,12 @@ body {
     color: var(--bgColor-accent-emphasis);
     background-color: white;
   }
+}
+
+.Box {
+  background-color: #fff;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
 }
 
 .blue-700 {
