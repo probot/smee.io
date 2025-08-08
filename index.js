@@ -1,3 +1,5 @@
-require('dotenv').config()
+import { config } from 'dotenv'
 
-require('./lib/server')
+import './lib/server'
+
+config()
