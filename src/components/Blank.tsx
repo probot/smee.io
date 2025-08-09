@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'preact/compat'
 import { InfoIcon } from '@primer/octicons-react'
 import CodeExample from './CodeExample.tsx'
 

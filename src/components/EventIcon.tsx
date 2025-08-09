@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'preact/compat'
 import {
   CommentIcon,
   CheckIcon,
@@ -17,7 +17,8 @@ import {
   GitPullRequestIcon,
   BookmarkIcon,
   IssueOpenedIcon,
-  IssueClosedIcon
+  IssueClosedIcon,
+  IconProps
 } from '@primer/octicons-react'
 
 const iconMap = {
@@ -44,12 +45,11 @@ const iconMap = {
   repository_vulnerability_alert: StopIcon
 }
 
-const EventIcon: React.FC<{ action?: string; event: string }> = function ({
+const EventIcon: FC<{ action?: string; event: string }> = function ({
   action,
   event
 }) {
-  /** @type {import("@primer/octicons-react").Icon} */
-  let Icon: import('@primer/octicons-react').Icon
+  let Icon: FC<IconProps>
   if (action && iconMap[`${event}.${action}`]) {
     Icon = iconMap[`${event}.${action}`]
   } else if (iconMap[event]) {

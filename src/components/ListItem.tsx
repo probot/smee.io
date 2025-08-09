@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'preact/compat'
 import ReactJson from '@microlink/react-json-view'
 import EventIcon from './EventIcon.tsx'
 import { KebabHorizontalIcon, PaperclipIcon, SyncIcon, PinIcon } from '@primer/octicons-react'

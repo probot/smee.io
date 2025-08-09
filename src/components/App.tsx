@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import ListItem from './ListItem.tsx'
 import get from 'get-value'
 import { AlertIcon, PulseIcon, SearchIcon, PinIcon } from '@primer/octicons-react'
