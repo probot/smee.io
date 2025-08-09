@@ -181,7 +181,7 @@ export default class App extends Component<{}, AppState> {
                   placeholder='repository.name:probot'
                   value={filter}
                   onChange={e => this.setState({ filter: e.target.value })}
-                  className='input input-lg width-full Box p-1'
+                  className='input input-lg width-full Box p-2'
                 />
               </div>
               {pinnedDeliveries.length > 0 && (
