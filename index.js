@@ -1,5 +1,5 @@
 import { config } from 'dotenv'
 
-import './lib/server'
+import './lib/server.js'
 
 config()
