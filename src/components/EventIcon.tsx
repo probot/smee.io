@@ -44,12 +44,12 @@ const iconMap = {
   repository_vulnerability_alert: StopIcon
 }
 
-export default function EventIcon ({
+const EventIcon: React.FC<{ action?: string; event: string }> = function ({
   action,
   event
 }) {
   /** @type {import("@primer/octicons-react").Icon} */
-  let Icon
+  let Icon: import('@primer/octicons-react').Icon
   if (action && iconMap[`${event}.${action}`]) {
     Icon = iconMap[`${event}.${action}`]
   } else if (iconMap[event]) {
@@ -60,3 +60,4 @@ export default function EventIcon ({
 
   return <Icon />
 }
+export default EventIcon

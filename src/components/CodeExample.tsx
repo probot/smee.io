@@ -13,8 +13,9 @@ const code = `<span class="hljs-keyword">const</span> SmeeClient = <span class="
 <span class="hljs-comment">// Stop forwarding events</span>
 events.close()`
 
-export default function CodeExample () {
+const CodeExample: React.FC = () => {
   return (
     <pre dangerouslySetInnerHTML={{ __html: code }} />
   )
 }
+export default CodeExample
