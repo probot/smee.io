@@ -1,9 +1,11 @@
-const neostandard = require('neostandard')
+import neostandard from 'neostandard'
 
-module.exports = [
+export default [
   ...neostandard({
     env: ['browser', 'es2022'],
-    files: ['src/**/*.js', 'src/**/*.jsx', 'index.js', 'lib/**/*.js'],
+    ts: true,
+    filesTs: ['src/**/*.ts', 'src/**/*.tsx'],
+    files: ['src/**/*.js', 'index.js', 'lib/**/*.js'],
   }),
   ...neostandard({
     env: ['jest'],

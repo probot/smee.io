@@ -1,7 +1,10 @@
 {
   "name": "smee.io",
   "private": true,
-  "sideEffects": ["*.scss"],
+  "type": "module",
+  "sideEffects": [
+    "*.scss"
+  ],
   "description": "Receives payloads then sends them to your locally running application.",
   "author": "Jason Etcovitch <jasonetco@gmail.com> (https://github.com/JasonEtco)",
   "license": "ISC",
@@ -34,6 +37,8 @@
     "@primer/octicons-react": "^19.11.0",
     "@primer/primitives": "^11.0.0",
     "@primer/view-components": "^0.43.6",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
     "autoprefixer": "^10.4.19",
     "compression-webpack-plugin": "^11.1.0",
     "concurrently": "^9.0.0",
