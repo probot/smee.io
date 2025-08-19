@@ -1,8 +1,8 @@
 import React from 'react'
 import { InfoIcon } from '@primer/octicons-react'
-import CodeExample from './CodeExample.jsx'
+import CodeExample from './CodeExample.tsx'
 
-export default function Blank () {
+const Blank: React.FC = function () {
   return (
     <div className='container-md p-responsive'>
       <div className='Box p-3 mt-4 mb-6'>
@@ -57,3 +57,4 @@ export default function Blank () {
     </div>
   )
 }
+export default Blank
