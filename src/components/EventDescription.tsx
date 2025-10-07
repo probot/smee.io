@@ -34,11 +34,15 @@ const DateSuffixLookup = [
 ]
 
 /** @param {Date} date */
-function formatDate (date) {
+function formatDate (date: Date) {
   return `${DayLookup[date.getDay()]}, ${MonthLookup[date.getMonth()]} ${DateSuffixLookup[date.getDate()]} ${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} ${date.getHours() >= 12 ? 'p.m. ' : 'a.m.'}`
 }
 
-export default function EventDescription ({
+const EventDescription: React.FC<{
+  event: string
+  payload: Record<string, any>
+  timestamp: number
+}> = function ({
   event,
   payload,
   timestamp
@@ -49,9 +53,10 @@ export default function EventDescription ({
 
   return (
     <div className='text-gray'>
-      <p className='mb-0'>There was a <strong>{event}</strong> event received on <code>{formattedTime}</code>.</p>
+      <p className='mb-0'>There was an <strong>{event}</strong> event received on <code>{formattedTime}</code>.</p>
       {onARepo && <p className='mt-0'>This event was sent by <strong>{payload.repository.full_name}</strong>.</p>}
       {onRepos && <p className='mt-0'>This event was triggered against: {payload.repositories.map(r => <span key={r.full_name}>{r.full_name}</span>)}.</p>}
     </div>
   )
 }
+export default EventDescription

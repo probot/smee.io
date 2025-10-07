@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import ReactJson from '@microlink/react-json-view'
-import EventIcon from './EventIcon.jsx'
+import EventIcon from './EventIcon.tsx'
 import { KebabHorizontalIcon, PaperclipIcon, SyncIcon, PinIcon } from '@primer/octicons-react'
-import EventDescription from './EventDescription.jsx'
+import EventDescription from './EventDescription.tsx'
 import copy from 'copy-to-clipboard'
 
-function formatDistance (time) {
+function formatDistance (time: number) {
   if (time < 30000) {
     return 'less than a minute'
   } else if (time < 90000) {
@@ -46,7 +46,23 @@ function formatDistance (time) {
   }
 }
 
-export default class ListItem extends Component {
+export default class ListItem extends Component<
+{
+  item: {
+    'x-github-event': string,
+    body: { action: string, [key: string]: unknown },
+    timestamp: number
+  },
+  now: number,
+  last: boolean,
+  pinned: boolean,
+  togglePinned: (id: string) => void
+}, {
+  expanded: boolean
+  copied: boolean
+  redelivered: boolean
+}> {
+  handleToggleExpanded: () => void
   constructor (props) {
     super(props)
     this.handleToggleExpanded = () => this.setState({ expanded: !this.state.expanded })
@@ -90,7 +106,7 @@ export default class ListItem extends Component {
           </div>
           <span className='input-monospace'>{event}</span>
           <time className='f6' style={{ marginLeft: 'auto' }}>{formatDistance(now - item.timestamp)} ago</time>
-          <button onClick={this.handleToggleExpanded} className='ellipsis-expander ml-2'><KebabHorizontalIcon height={12} /></button>
+          <button onClick={this.handleToggleExpanded} className='ellipsis-expander ml-2'><KebabHorizontalIcon size={12} /></button>
         </div>
 
         {expanded && (

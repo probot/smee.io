@@ -1,10 +1,10 @@
-const path = require('path')
-const autoprefixer = require('autoprefixer')
-const { globSync: glob } = require('tinyglobby')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { PurgeCSSPlugin } = require('purgecss-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const CompressionPlugin = require('compression-webpack-plugin')
+import { resolve as _resolve, join } from 'node:path'
+import autoprefixer from 'autoprefixer'
+import { globSync as glob } from 'tinyglobby'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import { PurgeCSSPlugin } from 'purgecss-webpack-plugin'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+import CompressionPlugin from 'compression-webpack-plugin'
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -17,14 +17,16 @@ const browsers = [
   '> 1%',
   'not dead'
 ]
+const __dirname = new URL('.', import.meta.url).pathname
+
 /** @type {import('webpack').Configuration} */
 const cfg = {
   entry: {
-    main: path.resolve(__dirname, 'src', 'main.jsx')
+    main: _resolve(__dirname, 'src', 'main.tsx')
   },
   mode: isProd ? 'production' : 'development',
   output: {
-    path: path.join(__dirname, 'public'),
+    path: join(__dirname, 'public'),
     filename: '[name].min.js',
     publicPath: '/'
   },
@@ -34,12 +36,12 @@ const cfg = {
   devtool: isProd ? false : 'source-map',
   module: {
     rules: [{
-      test: /\.jsx?$/,
+      test: /\.tsx?$/,
       exclude: /node_modules/,
       use: {
         loader: 'esbuild-loader',
         options: {
-          loader: 'jsx',
+          loader: 'tsx',
           target: 'es2022',
           sourcemap: process.env.NODE_ENV !== 'production'
         }
@@ -71,7 +73,7 @@ const cfg = {
     }]
   },
   resolve: {
-    modules: ['node_modules', path.resolve(__dirname, 'src')],
+    modules: ['node_modules', _resolve(__dirname, 'src')],
   }
 }
 
@@ -80,8 +82,8 @@ if (isProd) {
     minimize: true,
     moduleExtensions: ['.js', '.jsx'],
     paths: glob([
-      path.join(__dirname, 'src', '**/*.js'),
-      path.join(__dirname, 'public', '*.html')
+      join(__dirname, 'src', '**/*.js'),
+      join(__dirname, 'public', '*.html')
     ])
   }))
 }
@@ -94,4 +96,4 @@ if (process.env.ANALYZE_BUNDLE) {
   cfg.plugins.push(new BundleAnalyzerPlugin())
 }
 
-module.exports = cfg
+export default cfg
