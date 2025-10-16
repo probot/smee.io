@@ -155,7 +155,7 @@ export default class App extends Component<{}, AppState> {
     return (
       <main>
         <div className='py-2 bgColor-emphasis fgColor-onEmphasis'>
-          <div className='container-md p-responsive d-flex flex-items-center flex-justify-between'>
+          <div className='container-lg p-responsive d-flex flex-items-center flex-justify-between'>
             <h1 className='f4'>Webhook Deliveries</h1>
             <div className='flex-items-right tooltipped tooltipped-w' aria-label={stateString + ' to event stream'}>
               {this.state.connection
@@ -167,7 +167,7 @@ export default class App extends Component<{}, AppState> {
 
         {log.length > 0
           ? (
-            <div className='container-md py-3 p-responsive'>
+            <div className='container-lg py-3 p-responsive'>
               <div className='mb-2'>
                 <div className='d-flex flex-items-end mb-2'>
                   <label htmlFor='search' className='d-flex flex-items-center f6 text-gray'><SearchIcon size={12} className='mr-1' /> Filter by</label>
