@@ -17,9 +17,30 @@ export default class App extends Component {
     const ref = localStorage.getItem(this.ref)
     const pinnedRef = localStorage.getItem(this.pinnedRef)
 
+    let log = []
+    let pinnedDeliveries = []
+
+    try {
+      log = JSON.parse(ref)
+    } catch {
+      if (confirm('Your saved data for the desired channel is corrupted. Clear it?')) {
+        localStorage.removeItem(this.ref)
+      }
+    }
+
+    if (pinnedRef) {
+      try {
+        pinnedDeliveries = JSON.parse(pinnedRef)
+      } catch {
+        if (confirm('Your saved pinned deliveries for the desired channel is corrupted. Clear it?')) {
+          localStorage.removeItem(this.pinnedRef)
+        }
+      }
+    }
+
     this.state = {
-      log: ref ? JSON.parse(ref) : [],
-      pinnedDeliveries: pinnedRef ? JSON.parse(pinnedRef) : [],
+      log,
+      pinnedDeliveries,
       filter: '',
       connection: false
     }
@@ -34,36 +55,28 @@ export default class App extends Component {
 
   setupEventSource () {
     const url = window.location.pathname
-    console.log('Connecting to event source:', url)
     this.events = new window.EventSource(url)
     this.events.onopen = this.onopen.bind(this)
     this.events.onmessage = this.onmessage.bind(this)
     this.events.onerror = this.onerror.bind(this)
   }
 
-  onopen (data) {
+  onopen () {
     this.setState({
       connection: true
     })
   }
 
-  onerror (err) {
+  onerror () {
     this.setState({
       connection: false
     })
-    switch (this.events.readyState) {
-      case window.EventSource.CONNECTING:
-        console.log('Reconnecting...', err)
-        break
-      case window.EventSource.CLOSED:
-        console.log('Reinitializing...', err)
-        this.setupEventSource()
-        break
+    if (this.events.readyState === window.EventSource.CLOSED) {
+      this.setupEventSource()
     }
   }
 
   onmessage (message) {
-    console.log('received message!')
     const json = JSON.parse(message.data)
 
     // Prevent duplicates in the case of redelivered payloads
@@ -79,7 +92,6 @@ export default class App extends Component {
 
   handleClear () {
     if (confirm('Are you sure you want to clear the delivery log?')) {
-      console.log('Clearing logs')
       const filtered = this.state.log.filter(this.isPinned)
       this.setState({ log: filtered })
       if (filtered.length > 0) {
@@ -113,13 +125,13 @@ export default class App extends Component {
 
   render () {
     const { log, filter, pinnedDeliveries } = this.state
-    let filtered = log
+
+    let filtered = log || []
     if (filter) {
       filtered = log.filter(l => {
         if (filter && filter.includes(':')) {
           let [searchString, value] = filter.split(':')
           if (!searchString.startsWith('body')) searchString = `body.${searchString}`
-          console.log(l, searchString, value)
           return get(l, searchString) === value
         }
         return true
@@ -132,18 +144,18 @@ export default class App extends Component {
 
     const pinnedLogs = filtered.filter(this.isPinned).map((item, i, arr) => {
       const id = item['x-github-delivery'] || item.timestamp
-      return <ListItem now={now} key={id} pinned togglePinned={this.togglePinned} item={item} last={i === arr.length - 1} />
+      return <ListItem id={id} now={now} key={id} pinned togglePinned={this.togglePinned} item={item} last={i === arr.length - 1} />
     })
 
     const allLogs = filtered.filter(item => !this.isPinned(item)).map((item, i, arr) => {
       const id = item['x-github-delivery'] || item.timestamp
-      return <ListItem now={now} key={id} pinned={false} togglePinned={this.togglePinned} item={item} last={i === arr.length - 1} />
+      return <ListItem id={id} now={now} key={id} pinned={false} togglePinned={this.togglePinned} item={item} last={i === arr.length - 1} />
     })
 
     return (
       <main>
         <div className='py-2 bgColor-emphasis fgColor-onEmphasis'>
-          <div className='container-md p-responsive d-flex flex-items-center flex-justify-between'>
+          <div className='container-lg p-responsive d-flex flex-items-center flex-justify-between'>
             <h1 className='f4'>Webhook Deliveries</h1>
             <div className='flex-items-right tooltipped tooltipped-w' aria-label={stateString + ' to event stream'}>
               {this.state.connection
@@ -153,13 +165,13 @@ export default class App extends Component {
           </div>
         </div>
 
-        {log.length > 0
+        {log?.length > 0
           ? (
-            <div className='container-md py-3 p-responsive'>
+            <div className='container-lg py-3 p-responsive'>
               <div className='mb-2'>
                 <div className='d-flex flex-items-end mb-2'>
                   <label htmlFor='search' className='d-flex flex-items-center f6 text-gray'><SearchIcon height={12} width={12} className='mr-1' /> Filter by</label>
-                  <a className='f6' href='https://github.com/jonschlinkert/get-value' target='_blank' rel='noopener noreferrer'>get-value syntax</a>
+                  <a className='f6 ml-1' href='https://github.com/jonschlinkert/get-value' target='_blank' rel='noopener noreferrer'>get-value syntax</a>
 
                   <button onClick={this.handleClear} className='btn btn-sm btn-danger' style={{ marginLeft: 'auto' }}>Clear deliveries</button>
                 </div>

@@ -4,7 +4,7 @@ import CodeExample from './CodeExample.jsx'
 
 export default function Blank () {
   return (
-    <div className='container-md p-responsive'>
+    <div className='container-lg p-responsive'>
       <div className='Box p-3 mt-4 mb-6'>
         <div className='d-flex flex-items-center mb-2'>
           <label htmlFor='url'>Webhook Proxy URL</label>

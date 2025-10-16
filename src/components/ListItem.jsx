@@ -63,12 +63,13 @@ export default class ListItem extends Component {
   }
 
   handleRedeliver () {
-    return window.fetch(`${window.location.pathname}/redeliver`, {
+    const { body, rawBody, query, timestamp, action, ...headers } = this.props.item
+
+    const querystring = '?' + new URLSearchParams(query).toString()
+    return window.fetch(`${window.location.pathname}${querystring}`, {
       method: 'POST',
-      body: JSON.stringify(this.props.item),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      body: rawBody || JSON.stringify(body),
+      headers
     }).then(res => {
       this.setState({ redelivered: res.status === 200 })
     })
@@ -76,34 +77,34 @@ export default class ListItem extends Component {
 
   render () {
     const { expanded, copied, redelivered } = this.state
-    const { now, item, last, pinned, togglePinned } = this.props
+    const { now, item, pinned, togglePinned } = this.props
 
-    const event = item['x-github-event']
-    const payload = item.body
-    const id = item['x-github-delivery'] || item.timestamp
+    const { body, rawBody, query, timestamp, action, ...headers } = item
+    const eventType = headers['x-github-event']
+    const eventId = headers['x-github-delivery'] || timestamp
 
     return (
-      <li className={`p-3 ${last ? '' : 'border-bottom'}`}>
-        <div className='d-flex flex-items-center'>
+      <li>
+        <div onClick={this.handleToggleExpanded} className='p-3 SelectMenu-item d-flex flex-items-center'>
           <div className='mr-2' style={{ width: 16 }}>
-            <EventIcon event={event} action={payload.action} />
+            <EventIcon event={eventType} action={action} />
           </div>
-          <span className='input-monospace'>{event}</span>
-          <time className='f6' style={{ marginLeft: 'auto' }}>{formatDistance(now - item.timestamp)} ago</time>
+          <span className='input'>{eventId} {eventType}</span>
+          <time className='f5' style={{ marginLeft: 'auto' }}>{formatDistance(now - timestamp)} ago</time>
           <button onClick={this.handleToggleExpanded} className='ellipsis-expander ml-2'><KebabHorizontalIcon height={12} /></button>
         </div>
 
         {expanded && (
-          <div className='mt-3'>
+          <div className='p-3'>
             <div className='d-flex flex-justify-between flex-items-start'>
               <div>
-                <p><strong>Event ID:</strong> <code>{id}</code></p>
-                <EventDescription event={event} payload={payload} timestamp={item.timestamp} />
+                <p><strong>Event ID:</strong> <code>{eventId}</code></p>
+                <EventDescription event={eventType} body={body} timestamp={timestamp} />
               </div>
 
               <div className='d-flex ml-2'>
                 <button
-                  onClick={() => togglePinned(id)}
+                  onClick={() => togglePinned(eventId)}
                   className={`btn btn-sm tooltipped tooltipped-s ${pinned && 'text-blue'}`}
                   aria-label='Pin this delivery'
                 ><PinIcon />
@@ -126,14 +127,23 @@ export default class ListItem extends Component {
             </div>
             <hr className='mt-3' />
             <div className='mt-3'>
-              <h5 className='mb-2'>Payload</h5>
+              <h5 className='mb-2'>Headers</h5>
+              <div style={{ overflowX: 'auto' }}>
+                <pre>
+                  {Object.entries(headers).sort().map(([key, value]) => <div key={key}><strong>{key}: </strong><span>{value}</span><br /></div>)}
+                </pre>
+              </div>
+            </div>
+            <div className='mt-3'>
+              <h5 className='mb-2'>Body</h5>
               <ReactJson
-                src={payload}
-                name={id}
+                src={body}
+                name={eventId}
                 collapsed={1}
                 displayObjectSize={false}
                 displayDataTypes={false}
                 enableClipboard={false}
+                sortKeys
               />
             </div>
           </div>

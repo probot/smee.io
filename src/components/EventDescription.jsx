@@ -40,18 +40,18 @@ function formatDate (date) {
 
 export default function EventDescription ({
   event,
-  payload,
+  body,
   timestamp
 }) {
   const formattedTime = formatDate(new Date(timestamp))
-  const onARepo = payload.repository && payload.repository.full_name
-  const onRepos = payload.repositories && payload.repositories.every(r => r.full_name)
+  const onARepo = body.repository && body.repository.full_name
+  const onRepos = body.repositories && body.repositories.every(r => r.full_name)
 
   return (
     <div className='text-gray'>
-      <p className='mb-0'>There was a <strong>{event}</strong> event received on <code>{formattedTime}</code>.</p>
-      {onARepo && <p className='mt-0'>This event was sent by <strong>{payload.repository.full_name}</strong>.</p>}
-      {onRepos && <p className='mt-0'>This event was triggered against: {payload.repositories.map(r => <span key={r.full_name}>{r.full_name}</span>)}.</p>}
+      <p className='mb-0'>There was a <strong>{event}</strong> event received on <span>{formattedTime}</span>.</p>
+      {onARepo && <p className='mt-0'>This event was sent by <strong>{body.repository.full_name}</strong>.</p>}
+      {onRepos && <p className='mt-0'>This event was triggered against: {body.repositories.map(r => <span key={r.full_name}>{r.full_name}</span>)}.</p>}
     </div>
   )
 }
