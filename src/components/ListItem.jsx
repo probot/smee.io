@@ -63,12 +63,13 @@ export default class ListItem extends Component {
   }
 
   handleRedeliver () {
-    return window.fetch(`${window.location.pathname}/redeliver`, {
+    const { body, rawBody, query, timestamp, action, ...headers } = this.props.item
+
+    const querystring = '?' + new URLSearchParams(query).toString()
+    return window.fetch(`${window.location.pathname}${querystring}`, {
       method: 'POST',
-      body: JSON.stringify(this.props.item),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      body: rawBody || JSON.stringify(body),
+      headers
     }).then(res => {
       this.setState({ redelivered: res.status === 200 })
     })
@@ -78,9 +79,9 @@ export default class ListItem extends Component {
     const { expanded, copied, redelivered } = this.state
     const { now, item, pinned, togglePinned } = this.props
 
-    const { body, query, timestamp, action, ...headers } = item
-    const eventType = item['x-github-event']
-    const eventId = item['x-github-delivery'] || timestamp
+    const { body, rawBody, query, timestamp, action, ...headers } = item
+    const eventType = headers['x-github-event']
+    const eventId = headers['x-github-delivery'] || timestamp
 
     return (
       <li>
@@ -89,7 +90,7 @@ export default class ListItem extends Component {
             <EventIcon event={eventType} action={action} />
           </div>
           <span className='input'>{eventId} {eventType}</span>
-          <time className='f5' style={{ marginLeft: 'auto' }}>{formatDistance(now - item.timestamp)} ago</time>
+          <time className='f5' style={{ marginLeft: 'auto' }}>{formatDistance(now - timestamp)} ago</time>
           <button onClick={this.handleToggleExpanded} className='ellipsis-expander ml-2'><KebabHorizontalIcon height={12} /></button>
         </div>
 
@@ -98,7 +99,7 @@ export default class ListItem extends Component {
             <div className='d-flex flex-justify-between flex-items-start'>
               <div>
                 <p><strong>Event ID:</strong> <code>{eventId}</code></p>
-                <EventDescription event={eventType} body={body} timestamp={item.timestamp} />
+                <EventDescription event={eventType} body={body} timestamp={timestamp} />
               </div>
 
               <div className='d-flex ml-2'>
