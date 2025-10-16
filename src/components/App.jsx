@@ -23,14 +23,18 @@ export default class App extends Component {
     try {
       log = JSON.parse(ref)
     } catch {
-      localStorage.removeItem(this.ref)
+      if (confirm('Your saved data for the desired channel is corrupted. Clear it?')) {
+        localStorage.removeItem(this.ref)
+      }
     }
 
     if (pinnedRef) {
       try {
         pinnedDeliveries = JSON.parse(pinnedRef)
       } catch {
-        localStorage.removeItem(this.pinnedRef)
+        if (confirm('Your saved pinned deliveries for the desired channel is corrupted. Clear it?')) {
+          localStorage.removeItem(this.pinnedRef)
+        }
       }
     }
 
