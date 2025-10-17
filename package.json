@@ -61,7 +61,7 @@
     "react-dom": "^19.0.0",
     "sass": "^1.77.8",
     "sass-loader": "^16.0.0",
-    "smee-client": "^2.0.0",
+    "smee-client": "^4.0.0",
     "style-loader": "^4.0.0",
     "supertest": "^7.0.0",
     "tinyglobby": "^0.2.14",
