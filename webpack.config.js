@@ -80,9 +80,9 @@ const cfg = {
 if (isProd) {
   cfg.plugins.push(new PurgeCSSPlugin({
     minimize: true,
-    moduleExtensions: ['.js', '.jsx'],
+    moduleExtensions: ['.js', '.jsx', '.ts', '.tsx'],
     paths: glob([
-      join(__dirname, 'src', '**/*.js'),
+      join(__dirname, 'src', '**/*.{js,jsx,ts,tsx}'),
       join(__dirname, 'public', '*.html')
     ])
   }))
