@@ -1,7 +1,7 @@
 # A temporary image that installs dependencies and
 # builds the production-ready front-end bundles.
 
-FROM node:22-alpine AS bundles
+FROM node:24-alpine AS bundles
 WORKDIR /usr/src/smee.io
 COPY package*.json ./
 COPY webpack.config.js ./
@@ -14,7 +14,7 @@ RUN env NODE_ENV=production npm prune
 
 # --------------------------------------------------------------------------------
 
-FROM node:22-alpine
+FROM node:24-alpine
 LABEL description="Smee.io"
 
 # Let's make our home
