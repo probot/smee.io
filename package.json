@@ -36,7 +36,7 @@
     "@primer/css": "^22.0.0",
     "@primer/octicons-react": "^19.11.0",
     "@primer/primitives": "^11.0.0",
-    "@primer/view-components": "^0.43.6",
+    "@primer/view-components": "^0.48.0",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
     "autoprefixer": "^10.4.19",
