@@ -28,7 +28,7 @@
     "@sentry/node": "^10.1.0",
     "dotenv": "^17.2.1",
     "eventsource": "^4.0.0",
-    "fastify": "^5.4.0",
+    "fastify": "^5.7.3",
     "ioredis": "^5.3.2"
   },
   "devDependencies": {
