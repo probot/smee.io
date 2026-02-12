@@ -55,7 +55,7 @@
     "nodemon": "^3.0.0",
     "postcss": "^8.4.39",
     "postcss-loader": "^8.0.0",
-    "purgecss-webpack-plugin": "^7.0.2",
+    "purgecss-webpack-plugin": "^8.0.0",
     "raf": "^3.4.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
