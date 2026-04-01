@@ -46,12 +46,25 @@ function formatDistance (time: number) {
   }
 }
 
+const RESERVED_KEYS = new Set(['body', 'timestamp', 'query', 'x-github-event', 'x-github-delivery'])
+
+function getHeaders (item: Record<string, unknown>): Record<string, string> {
+  const headers: Record<string, string> = {}
+  for (const [key, value] of Object.entries(item)) {
+    if (!RESERVED_KEYS.has(key) && typeof value === 'string') {
+      headers[key] = value
+    }
+  }
+  return headers
+}
+
 export default class ListItem extends Component<
 {
   item: {
     'x-github-event': string,
     body: { action: string, [key: string]: unknown },
-    timestamp: number
+    timestamp: number,
+    [key: string]: unknown
   },
   now: number,
   last: boolean,
@@ -61,6 +74,7 @@ export default class ListItem extends Component<
   expanded: boolean
   copied: boolean
   redelivered: boolean
+  headersExpanded: boolean
 }> {
   handleToggleExpanded: () => void
   constructor (props) {
@@ -68,7 +82,7 @@ export default class ListItem extends Component<
     this.handleToggleExpanded = () => this.setState({ expanded: !this.state.expanded })
     this.handleCopy = this.handleCopy.bind(this)
     this.handleRedeliver = this.handleRedeliver.bind(this)
-    this.state = { expanded: false, copied: false, redelivered: false }
+    this.state = { expanded: false, copied: false, redelivered: false, headersExpanded: false }
   }
 
   handleCopy () {
@@ -91,18 +105,19 @@ export default class ListItem extends Component<
   }
 
   render () {
-    const { expanded, copied, redelivered } = this.state
+    const { expanded, copied, redelivered, headersExpanded } = this.state
     const { now, item, last, pinned, togglePinned } = this.props
 
     const event = item['x-github-event']
     const payload = item.body
     const id = item['x-github-delivery'] || item.timestamp
+    const headers = getHeaders(item)
 
     return (
       <li className={`p-3 ${last ? '' : 'border-bottom'}`}>
         <div className='d-flex flex-items-center'>
           <div className='mr-2' style={{ width: 16 }}>
-            <EventIcon event={event} action={payload.action} />
+            <EventIcon event={event} action={payload && payload.action} />
           </div>
           <span className='input-monospace'>{event}</span>
           <time className='f6' style={{ marginLeft: 'auto' }}>{formatDistance(now - item.timestamp)} ago</time>
@@ -140,6 +155,34 @@ export default class ListItem extends Component<
                 </button>
               </div>
             </div>
+            {Object.keys(headers).length > 0 && (
+              <>
+                <hr className='mt-3' />
+                <div className='mt-3'>
+                  <h5
+                    className='mb-2'
+                    style={{ cursor: 'pointer', userSelect: 'none' }}
+                    onClick={() => this.setState({ headersExpanded: !headersExpanded })}
+                  >
+                    {headersExpanded ? '▾' : '▸'} Headers <span className='f6 text-gray'>({Object.keys(headers).length})</span>
+                  </h5>
+                  {headersExpanded && (
+                    <div className='Box p-2' style={{ fontFamily: 'monospace', fontSize: 12, overflowX: 'auto' }}>
+                      <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+                        <tbody>
+                          {Object.entries(headers).map(([key, value]) => (
+                            <tr key={key}>
+                              <td className='text-bold pr-3 py-1' style={{ whiteSpace: 'nowrap', verticalAlign: 'top' }}>{key}</td>
+                              <td className='py-1' style={{ wordBreak: 'break-all' }}>{value}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
             <hr className='mt-3' />
             <div className='mt-3'>
               <h5 className='mb-2'>Payload</h5>
